@@ -7,9 +7,27 @@ body {
   color: #333;
 }
 main {
-  max-width: 400px;
+  max-width: 480px;
   margin: auto;
   text-align: center;
+}
+.calendar-week {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+.calendar-week button {
+  flex: 1 1 13%;
+  margin: 2px;
+  padding: 5px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  cursor: pointer;
+}
+.calendar-week button.selected {
+  background-color: #ffec99;
+  font-weight: bold;
 }
 .stamp-buttons button {
   font-size: 2rem;

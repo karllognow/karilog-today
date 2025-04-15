@@ -30,24 +30,65 @@
   <script>
     const goalList = document.getElementById('goal-list');
 
+    function getMonday(d) {
+      const date = new Date(d);
+      const day = date.getDay();
+      const diff = date.getDate() - ((day + 6) % 7);
+      return new Date(date.setDate(diff));
+    }
+
+    const today = new Date();
+    const thisMonday = getMonday(today);
+    const thisWeekKey = "week_" + thisMonday.toISOString().split("T")[0];
+
+    function saveGoals() {
+      const goals = Array.from(document.querySelectorAll('.goal-input')).map(input => input.value);
+      localStorage.setItem(thisWeekKey, JSON.stringify(goals));
+    }
+
+    function loadGoals() {
+      const saved = localStorage.getItem(thisWeekKey);
+      if (saved) {
+        const goals = JSON.parse(saved);
+        goals.forEach(text => addGoal(text));
+      } else {
+        tryImportFromLastWeek();
+      }
+    }
+
+    function tryImportFromLastWeek() {
+      const lastMonday = new Date(thisMonday);
+      lastMonday.setDate(thisMonday.getDate() - 7);
+      const lastKey = "week_" + lastMonday.toISOString().split("T")[0];
+      const previous = localStorage.getItem(lastKey);
+      if (previous) {
+        const goals = JSON.parse(previous);
+        goals.forEach(text => addGoal(text));
+        saveGoals();
+      } else {
+        addGoal();
+      }
+    }
+
     function addGoal(text = '') {
       const input = document.createElement('input');
       input.type = 'text';
       input.placeholder = '目標を入力';
       input.className = 'goal-input';
       input.value = text;
+      input.onchange = saveGoals;
       goalList.appendChild(input);
     }
 
     function removeGoal() {
       if (goalList.children.length > 0) {
         goalList.removeChild(goalList.lastChild);
+        saveGoals();
       }
     }
 
-    // 初期に1つ表示
     window.onload = () => {
-      addGoal();
+      loadGoals();
     };
   </script>
 </body>

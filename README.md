@@ -1,1 +1,1 @@
-# karilog-today
+# Karilog Today - 統合版

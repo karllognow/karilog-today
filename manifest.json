@@ -1,9 +1,4 @@
-
 {
-  "name": "狩ログNOW Today",
-  "short_name": "狩ログToday",
-  "start_url": "./",
-  "display": "standalone",
-  "background_color": "#fffbea",
-  "theme_color": "#ffcc00"
+  "name": "Karilog Today",
+  "start_url": "."
 }

@@ -1,9 +1,0 @@
-{
-  "name": "狩ログNOW",
-  "short_name": "狩ログ",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#fffceb",
-  "description": "モンハンNOWのプレイ記録アプリ",
-  "icons": []
-}

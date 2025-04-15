@@ -1,1 +1,3 @@
-# Karilog Today - 統合版
+# karilog-today
+
+狩ログNOWのTodayタブ（Webアプリ版）

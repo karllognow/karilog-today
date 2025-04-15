@@ -1,4 +1,3 @@
-
 const today = new Date();
 let selectedDate = new Date();
 
@@ -45,15 +44,9 @@ function updateSelected() {
   buildCalendar();
 }
 
-function setStamp(symbol) {
-  document.getElementById("selected-stamp").textContent = symbol;
-}
-
 function saveData() {
   const dateKey = formatDate(selectedDate);
-  const stamp = document.getElementById("selected-stamp").textContent;
   const memo = document.getElementById("memo").value;
-  localStorage.setItem("stamp-" + dateKey, stamp);
   localStorage.setItem("memo-" + dateKey, memo);
   alert("保存しました！");
 }
@@ -62,8 +55,6 @@ function loadData() {
   const dateKey = formatDate(selectedDate);
   document.getElementById("memo").value =
     localStorage.getItem("memo-" + dateKey) || "";
-  document.getElementById("selected-stamp").textContent =
-    localStorage.getItem("stamp-" + dateKey) || "";
 }
 
 window.onload = () => {

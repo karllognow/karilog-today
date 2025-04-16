@@ -1,1 +1,0 @@
-console.log('狩ログNOW script loaded.');

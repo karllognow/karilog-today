@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>狩ログNOW｜GOAL</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>狩ログNOW | GOAL</h1>
+  </header>
+
+  <main>
+    <section class="event">
+      <h2>今月のイベント内容</h2>
+      <ul>
+        <li>1週目：特別報酬UP</li>
+        <li>2週目：金策ウィーク</li>
+        <li>3週目：素材ドロップ2倍</li>
+        <li>4週目：古龍襲来</li>
+      </ul>
+    </section>
+
+    <section class="goal-section">
+      <h2>装備製作目標 <button onclick="location.href='register.html'">＞</button></h2>
+      <ul>
+        <li>タマミツネ武器：G5-1 → G10-5（4/15〜4/27）</li>
+        <li>ティガレックス腰：G5-1 → G8-1（4/15〜4/18）</li>
+      </ul>
+    </section>
+
+    <section class="goal-section">
+      <h2>憑依錬成目標 <button>＞</button></h2>
+      <ul>
+        <li>リオレウス・脚 → 火事場力［赤］</li>
+        <li>バゼルギウス・胴 → 攻めの守勢［黄］</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <nav>
+      <button onclick="location.href='index.html'">HOME</button>
+      <button onclick="location.href='today.html'">TODAY</button>
+      <button onclick="location.href='weekly.html'">WEEKLY</button>
+      <button onclick="location.href='goal.html'">GOAL</button>
+    </nav>
+  </footer>
+</body>
+</html>

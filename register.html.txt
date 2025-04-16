@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>装備製作目標 登録</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>狩ログNOW | 装備製作 登録</h1>
+  </header>
+
+  <main>
+    <section>
+      <label>モンスター名：</label>
+      <input type="text" placeholder="例：タマミツネ">
+    </section>
+
+    <section>
+      <label>武器 or 防具：</label>
+      <select>
+        <option>武器</option>
+        <option>防具</option>
+      </select>
+    </section>
+
+    <section>
+      <label>現在のグレード：</label>
+      <input type="text" placeholder="例：5-1">
+    </section>
+
+    <section>
+      <label>目標グレード：</label>
+      <input type="text" placeholder="例：10-5">
+    </section>
+
+    <section>
+      <label>期間：</label>
+      <input type="date">
+      〜
+      <input type="date">
+    </section>
+
+    <section>
+      <button>計算</button>
+    </section>
+
+    <section class="materials">
+      <h2>必要素材</h2>
+      <ul>
+        <li><input type="checkbox"> 洗練材 × 142</li>
+        <li><input type="checkbox"> 竜骨(小) × 500</li>
+      </ul>
+    </section>
+
+    <button class="register-btn">TODAY・WEEKLYに登録（広告表示）</button>
+  </main>
+
+  <footer>
+    <nav>
+      <button onclick="location.href='index.html'">HOME</button>
+      <button onclick="location.href='today.html'">TODAY</button>
+      <button onclick="location.href='weekly.html'">WEEKLY</button>
+      <button onclick="location.href='goal.html'">GOAL</button>
+    </nav>
+  </footer>
+</body>
+</html>

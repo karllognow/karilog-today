@@ -1,0 +1,36 @@
+body {
+  font-family: sans-serif;
+  background: #fffbe9;
+  margin: 0;
+  padding-bottom: 80px;
+}
+header, main, footer {
+  padding: 16px;
+}
+h1, h2 {
+  margin: 0 0 16px;
+}
+.calendar-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+.day-header {
+  font-weight: bold;
+  background: #f0f0f0;
+  padding: 8px 0;
+}
+.day-cell {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 8px;
+  min-height: 50px;
+}

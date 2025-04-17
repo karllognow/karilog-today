@@ -139,3 +139,25 @@ button.register-btn {
   height: 100%;
   background-color: #4caf50;
 }
+/* 自由枠 UI */
+.free-goal {
+  margin-top: 20px;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 6px;
+}
+.free-goal input, .free-goal select {
+  margin: 4px;
+  padding: 6px;
+}
+.free-goal .goal-block {
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+/* TODAY 自由枠表示 */
+.free-goal-today p {
+  margin: 6px 0;
+}

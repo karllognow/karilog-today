@@ -1,74 +1,52 @@
-// 仮のタマミツネ武器マスターデータ（グレード別）
-const masterData = {
-  "4-1": { materials: { "泡狐竜の鱗": 3, "泡狐竜の爪": 2 }, zenny: 1000 },
-  "4-2": { materials: { "泡狐竜の鱗": 2, "泡狐竜の甲殻": 1 }, zenny: 1200 },
-  // ...
-  "10-5": { materials: { "泡狐竜の鱗": 5, "泡狐竜の爪": 4 }, zenny: 5000 }
+const monsterMaterials = {
+  tamamitsune: {
+    weapon: {
+      "4-1": { "泡狐竜の鱗": 3, "泡狐竜の爪": 2, "精錬材": 2, "ゼニー": 1000 },
+      "4-2": { "泡狐竜の鱗": 2, "精錬材": 1, "ゼニー": 1500 },
+      "10-5": { "泡狐竜の紫毛": 5, "精錬材": 3, "ゼニー": 9000 }
+      // 中略
+    },
+    armor: {
+      // 防具データ（未記入）
+    }
+  }
 };
 
-// グレードを文字列として並び順に取得（簡易版）
-const gradeList = [
-  "4-1", "4-2", "4-3", "4-4", "4-5",
-  "5-1", "5-2", "5-3", "5-4", "5-5",
-  "6-1", "6-2", "6-3", "6-4", "6-5",
-  "7-1", "7-2", "7-3", "7-4", "7-5",
-  "8-1", "8-2", "8-3", "8-4", "8-5",
-  "9-1", "9-2", "9-3", "9-4", "9-5",
-  "10-1", "10-2", "10-3", "10-4", "10-5"
-];
+document.getElementById('search-button').addEventListener('click', () => {
+  const monster = document.getElementById('monster-select').value;
+  const type = document.getElementById('type-select').value;
+  const current = document.getElementById('current-grade').value;
+  const target = document.getElementById('target-grade').value;
 
-// イベントリスナー
-document.getElementById("calculate-button").addEventListener("click", calculateMaterials);
-document.getElementById("register-button").addEventListener("click", registerGoal);
-
-function calculateMaterials() {
-  const monster = document.getElementById("monster-select").value;
-  const type = document.getElementById("type-select").value;
-  const start = document.getElementById("current-grade").value;
-  const end = document.getElementById("target-grade").value;
-
-  const list = document.getElementById("materials-list");
-  list.innerHTML = "";
-
-  if (!monster || !type || !start || !end) {
-    alert("すべての項目を入力してください。");
+  if (!monster || !type || !current || !target) {
+    alert('すべての項目を入力してください');
     return;
   }
 
-  const startIndex = gradeList.indexOf(start);
-  const endIndex = gradeList.indexOf(end);
-  if (startIndex === -1 || endIndex === -1 || startIndex > endIndex) {
-    alert("グレードの入力が正しくありません。");
+  const allGrades = Object.keys(monsterMaterials[monster][type]);
+  const currentIndex = allGrades.indexOf(current);
+  const targetIndex = allGrades.indexOf(target);
+
+  if (currentIndex === -1 || targetIndex === -1 || currentIndex >= targetIndex) {
+    alert('グレードの入力が正しくありません');
     return;
   }
 
   const totals = {};
-  let totalZenny = 0;
-
-  for (let i = startIndex; i <= endIndex; i++) {
-    const grade = gradeList[i];
-    const data = masterData[grade];
-    if (!data) continue;
-    for (const mat in data.materials) {
-      totals[mat] = (totals[mat] || 0) + data.materials[mat];
+  for (let i = currentIndex + 1; i <= targetIndex; i++) {
+    const grade = allGrades[i];
+    const materials = monsterMaterials[monster][type][grade];
+    for (const key in materials) {
+      totals[key] = (totals[key] || 0) + materials[key];
     }
-    totalZenny += data.zenny;
   }
 
-  for (const mat in totals) {
-    const div = document.createElement("div");
-    div.className = "material-item";
-    div.textContent = `${mat}: ${totals[mat]}個`;
-    list.appendChild(div);
-  }
+  const resultDiv = document.getElementById('material-list');
+  resultDiv.innerHTML = '<h3>必要素材:</h3><ul>' +
+    Object.entries(totals).map(([key, val]) => `<li>${key}: ${val}</li>`).join('') +
+    '</ul>';
+});
 
-  const zennyDiv = document.createElement("div");
-  zennyDiv.className = "material-item";
-  zennyDiv.textContent = `必要ゼニー: ${totalZenny} z`;
-  list.appendChild(zennyDiv);
-}
-
-// 仮のToday／Weekly反映処理（※実アプリでは保存先に書き出し）
-function registerGoal() {
-  alert("Today・Weeklyに装備目標を登録しました！（仮実装）");
-}
+document.getElementById('register-button').addEventListener('click', () => {
+  alert("仮登録処理（Today/Weekly連携は次工程で実装）");
+});

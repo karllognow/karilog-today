@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>装備製作登録ページ</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <h2>装備製作目標 登録</h2>
+
+    <label for="monster-select">モンスター名</label>
+    <select id="monster-select">
+      <option value="">選択してください</option>
+      <option value="タマミツネ">タマミツネ</option>
+      <!-- 他のモンスターも追って追加可能 -->
+    </select>
+
+    <label for="type-select">武器 or 防具</label>
+    <select id="type-select">
+      <option value="">選択してください</option>
+      <option value="武器">武器</option>
+      <option value="防具">防具</option>
+    </select>
+
+    <label for="current-grade">現在のグレード（例: 4-1）</label>
+    <input type="text" id="current-grade" placeholder="例: 4-1"/>
+
+    <label for="target-grade">目標グレード（例: 10-5）</label>
+    <input type="text" id="target-grade" placeholder="例: 10-5"/>
+
+    <label for="period-start">開始日</label>
+    <input type="date" id="period-start" />
+
+    <label for="period-end">目標日</label>
+    <input type="date" id="period-end" />
+
+    <button id="calculate-button">素材とゼニーを計算</button>
+
+    <div id="materials-list"></div>
+
+    <button id="register-button">Today・Weeklyに登録</button>
+  </main>
+
+  <footer>
+    <nav>
+      <a href="index.html">HOME</a>
+      <a href="today.html">TODAY</a>
+      <a href="weekly.html">WEEKLY</a>
+      <a href="goal.html">GOAL</a>
+    </nav>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

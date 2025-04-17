@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>狩ログNOW｜HOME</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>狩ログNOW｜HOME</h1>
+
+  <!-- 今週の進捗状況（例） -->
+  <section class="progress-area">
+    <h2>進捗状況</h2>
+    <p>タマミツネ武器：素材進捗 60%</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 60%;"></div>
+    </div>
+    <p>ティガレックス腰：素材進捗 40%</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 40%;"></div>
+    </div>
+  </section>
+
+  <!-- 今週のゼニー目標 -->
+  <section>
+    <h2>ゼニー進捗</h2>
+    <p>今週の目標：120,000ゼニー / 現在：60,000ゼニー</p>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" style="width: 50%;"></div>
+    </div>
+  </section>
+
+  <!-- 憑依錬成 -->
+  <section>
+    <h2>狙いの錬成</h2>
+    <p>タマミツネ頭 × 赤石 → 火属性強化【進行中】</p>
+  </section>
+
+  <!-- 自由枠（1件表示） -->
+  <section class="home-free-goal">
+    <h2>自由枠</h2>
+    <p>歩いた距離：14km</p>
+  </section>
+
+  <!-- ナビゲーション -->
+  <nav>
+    <a href="index.html">HOME</a> |
+    <a href="today.html">TODAY</a> |
+    <a href="weekly.html">WEEKLY</a> |
+    <a href="goal.html">GOAL</a>
+  </nav>
+</body>
+</html>

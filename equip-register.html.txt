@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>装備製作登録</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>装備製作登録</h1>
+  </header>
+
+  <main>
+    <!-- モンスター選択 -->
+    <section>
+      <label for="monster-search">モンスター名を検索：</label>
+      <input type="text" id="monster-search" placeholder="例：タマミツネ" />
+      <select id="monster-select">
+        <option value="">-- モンスターを選択 --</option>
+        <option value="タマミツネ_武器">タマミツネ（武器）</option>
+      </select>
+      <button id="search-button">検索</button>
+    </section>
+
+    <!-- グレード設定 -->
+    <section>
+      <label>現在のグレード：</label>
+      <input type="text" id="current-grade" placeholder="例：5-1" />
+      <br />
+      <label>目標のグレード：</label>
+      <input type="text" id="target-grade" placeholder="例：10-5" />
+      <p style="font-size: 12px; color: gray;">※半角数字とハイフンで入力してください（例：5-1）</p>
+    </section>
+
+    <!-- 期間設定 -->
+    <section>
+      <label>開始日：</label>
+      <input type="date" id="start-date" />
+      <br />
+      <label>終了日：</label>
+      <input type="date" id="end-date" />
+    </section>
+
+    <!-- 素材表示 -->
+    <section id="result-section">
+      <h2>必要素材一覧</h2>
+      <ul id="materials-list"></ul>
+      <p id="total-zeny"></p>
+    </section>
+
+    <!-- 登録ボタン -->
+    <section>
+      <button id="register-button">Today・Weeklyに登録（広告表示）</button>
+      <div id="ad-timer" style="display:none;">広告中... <span id="timer">30</span> 秒</div>
+    </section>
+  </main>
+
+  <!-- 共通フッター -->
+  <footer>
+    <nav>
+      <a href="index.html">HOME</a>
+      <a href="today.html">TODAY</a>
+      <a href="weekly.html">WEEKLY</a>
+      <a href="goal.html">GOAL</a>
+    </nav>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

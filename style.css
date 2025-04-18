@@ -1,28 +1,98 @@
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  background-color: #f5f5f5;
+  padding: 20px;
+  margin: 0;
+}
+
+.container {
+  max-width: 720px;
+  background: white;
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin: 16px 0 6px;
+  font-weight: bold;
+  font-size: 0.95em;
+}
+
+select,
+input[type="date"],
+button,
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
 .grade-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 5px;
-  margin-top: 10px;
+  gap: 6px;
+  margin-bottom: 10px;
 }
 
-.grade-grid button {
-  padding: 6px;
-  background-color: #f0f0f0;
+.grade-grid div {
+  padding: 8px;
+  text-align: center;
   border: 1px solid #aaa;
-  border-radius: 4px;
   cursor: pointer;
+  background-color: #eee;
+  border-radius: 4px;
+  font-size: 0.9em;
 }
 
-.grade-grid button.selected {
-  background-color: #86c5ff;
+.grade-grid div.selected {
+  background-color: #007BFF;
+  color: white;
   font-weight: bold;
 }
 
-.material-list {
-  margin-top: 20px;
-  font-size: 14px;
+.grade-grid div.disabled {
+  background-color: #ddd;
+  color: #999;
+  pointer-events: none;
 }
 
-.material-list ul {
-  padding-left: 20px;
+#materialsList {
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 6px;
+}
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9em;
+  color: #666;
 }

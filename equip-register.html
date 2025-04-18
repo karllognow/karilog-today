@@ -3,33 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>装備製作 登録</title>
+  <title>装備製作 登録ページ</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
+  <main>
     <h1>装備製作 登録ページ</h1>
-    <label for="monster">モンスター名:</label>
-    <select id="monster">
-      <option value="タマミツネ">タマミツネ</option>
-    </select>
 
-    <label for="type">装備種別:</label>
-    <select id="type">
-      <option value="武器">武器</option>
-    </select>
+    <section>
+      <label>モンスター名：
+        <span id="monster-name">タマミツネ</span>
+      </label>
+      <label>装備種別：
+        <span id="equip-type">武器</span>
+      </label>
+    </section>
 
-    <h2>現在のグレードを選択</h2>
-    <div id="current-grade" class="grid"></div>
+    <section>
+      <button class="grade-button" id="current-grade-button">現在のグレードを選択</button>
+      <button class="grade-button" id="target-grade-button">目標のグレードを選択</button>
+    </section>
 
-    <h2>目標のグレードを選択</h2>
-    <div id="target-grade" class="grid"></div>
+    <section>
+      <label>開始日：<input type="date" id="start-date"></label>
+      <label>終了日：<input type="date" id="end-date"></label>
+    </section>
 
-    <button id="calculate">必要素材を計算</button>
+    <section>
+      <button id="calculate-button">必要素材を計算する</button>
+    </section>
 
-    <div id="result"></div>
+    <section>
+      <div id="material-list"></div>
+      <div id="error-message" class="error-message"></div>
+    </section>
+  </main>
+
+  <footer>
+    <nav>
+      <a href="index.html">HOME</a>
+      <a href="today.html">TODAY</a>
+      <a href="weekly.html">WEEKLY</a>
+      <a href="goal.html">GOAL</a>
+    </nav>
+  </footer>
+
+  <!-- グレード選択モーダル -->
+  <div id="grade-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="modal-title">グレードを選択</h2>
+      <div id="grade-grid"></div>
+      <button id="modal-close">閉じる</button>
+    </div>
   </div>
 
+  <script src="monster_materials.js"></script>
   <script src="main.js"></script>
 </body>
 </html>

@@ -1,75 +1,105 @@
-const monsterName = "タマミツネ";
-const equipType = "武器";
+document.addEventListener("DOMContentLoaded", function () {
+  const startButtons = document.querySelectorAll(".start-grade-btn");
+  const endButtons = document.querySelectorAll(".end-grade-btn");
+  const startDisplay = document.getElementById("start-grade");
+  const endDisplay = document.getElementById("end-grade");
+  const calculateButton = document.getElementById("calculate-button");
+  const resultSection = document.getElementById("result");
+  const resultList = document.getElementById("material-list");
+  const alertMessage = document.getElementById("alert-message");
 
-// グレード生成（5-1〜10-5まで）
-const generateGradeList = () => {
-  const grades = [];
-  for (let i = 5; i <= 10; i++) {
-    for (let j = 1; j <= 5; j++) {
-      grades.push(`${i}-${j}`);
-    }
-  }
-  return grades;
-};
+  let selectedStart = "";
+  let selectedEnd = "";
 
-// モーダル制御
-let currentTarget = null;
-const modal = document.getElementById("grade-modal");
-const gradeGrid = document.getElementById("grade-grid");
-const modalTitle = document.getElementById("modal-title");
-
-document.getElementById("current-grade-button").addEventListener("click", () => {
-  openModal("現在のグレードを選択", "current-grade");
-});
-
-document.getElementById("target-grade-button").addEventListener("click", () => {
-  openModal("目標のグレードを選択", "target-grade");
-});
-
-document.getElementById("modal-close").addEventListener("click", () => {
-  modal.classList.add("hidden");
-});
-
-function openModal(title, targetId) {
-  modal.classList.remove("hidden");
-  modalTitle.textContent = title;
-  currentTarget = targetId;
-  gradeGrid.innerHTML = "";
-  const grades = generateGradeList();
-  grades.forEach(grade => {
-    const btn = document.createElement("button");
-    btn.textContent = grade;
-    btn.addEventListener("click", () => {
-      document.getElementById(currentTarget + "-button").textContent = grade;
-      modal.classList.add("hidden");
+  startButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      selectedStart = button.textContent;
+      startDisplay.textContent = selectedStart;
+      highlightSelected(startButtons, button);
     });
-    gradeGrid.appendChild(btn);
   });
-}
 
-// 計算処理
-document.getElementById("calculate-button").addEventListener("click", () => {
-  const start = document.getElementById("current-grade-button").textContent;
-  const end = document.getElementById("target-grade-button").textContent;
-  const startGrade = start.match(/^\d-\d$/) ? start : null;
-  const endGrade = end.match(/^\d-\d$/) ? end : null;
-  const error = document.getElementById("error-message");
-  const list = document.getElementById("material-list");
+  endButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      selectedEnd = button.textContent;
+      endDisplay.textContent = selectedEnd;
+      highlightSelected(endButtons, button);
+    });
+  });
 
-  if (!startGrade || !endGrade) {
-    error.textContent = "正しいグレード範囲を選択してください。";
-    list.innerHTML = "";
-    return;
+  function highlightSelected(buttons, selectedButton) {
+    buttons.forEach((btn) => btn.classList.remove("selected"));
+    selectedButton.classList.add("selected");
   }
 
-  error.textContent = "";
+  calculateButton.addEventListener("click", () => {
+    const monsterName = "タマミツネ";
+    const equipmentType = "武器";
+    const start = selectedStart;
+    const end = selectedEnd;
 
-  // モック素材計算
-  list.innerHTML = `<h3>必要素材一覧</h3><ul>
-    <li>泡狐竜の鱗 ×10</li>
-    <li>泡狐竜の爪 ×6</li>
-    <li>竜骨【中】×12</li>
-    <li>防具精錬材 ×8</li>
-    <li>ゼニー：24000z</li>
-  </ul>`;
+    const startGrade = start.match(/^\d{1,2}-[1-5]$/) ? start : null;
+    const endGrade = end.match(/^\d{1,2}-[1-5]$/) ? end : null;
+
+    if (!startGrade || !endGrade) {
+      alertMessage.style.display = "block";
+      resultSection.style.display = "none";
+      return;
+    }
+
+    alertMessage.style.display = "none";
+
+    fetch("monster_materials.json")
+      .then((response) => response.json())
+      .then((data) => {
+        const materials =
+          data[monsterName] &&
+          data[monsterName][equipmentType] &&
+          data[monsterName][equipmentType].materials;
+
+        if (!materials) {
+          resultList.innerHTML = "<li>データが見つかりませんでした</li>";
+          resultSection.style.display = "block";
+          return;
+        }
+
+        const startIndex = Object.keys(materials).indexOf(startGrade);
+        const endIndex = Object.keys(materials).indexOf(endGrade);
+
+        if (startIndex === -1 || endIndex === -1 || startIndex > endIndex) {
+          alertMessage.style.display = "block";
+          resultSection.style.display = "none";
+          return;
+        }
+
+        const slicedGrades = Object.keys(materials).slice(
+          startIndex,
+          endIndex + 1
+        );
+
+        const totalMaterials = {};
+
+        slicedGrades.forEach((grade) => {
+          const gradeMaterials = materials[grade];
+          for (const [material, count] of Object.entries(gradeMaterials)) {
+            totalMaterials[material] =
+              (totalMaterials[material] || 0) + count;
+          }
+        });
+
+        resultList.innerHTML = "";
+        for (const [material, count] of Object.entries(totalMaterials)) {
+          const li = document.createElement("li");
+          li.textContent = `${material}: ${count}`;
+          resultList.appendChild(li);
+        }
+
+        resultSection.style.display = "block";
+      })
+      .catch((error) => {
+        console.error("エラー:", error);
+        resultList.innerHTML = "<li>計算中にエラーが発生しました</li>";
+        resultSection.style.display = "block";
+      });
+  });
 });

@@ -1,72 +1,75 @@
-const currentGrid = document.getElementById("current-grade");
-const targetGrid = document.getElementById("target-grade");
-const resultDiv = document.getElementById("result");
+const monsterName = "タマミツネ";
+const equipType = "武器";
 
-let currentSelected = null;
-let targetSelected = null;
-
-function createGradeGrid(container, callback) {
+// グレード生成（5-1〜10-5まで）
+const generateGradeList = () => {
   const grades = [];
   for (let i = 5; i <= 10; i++) {
     for (let j = 1; j <= 5; j++) {
       grades.push(`${i}-${j}`);
     }
   }
+  return grades;
+};
+
+// モーダル制御
+let currentTarget = null;
+const modal = document.getElementById("grade-modal");
+const gradeGrid = document.getElementById("grade-grid");
+const modalTitle = document.getElementById("modal-title");
+
+document.getElementById("current-grade-button").addEventListener("click", () => {
+  openModal("現在のグレードを選択", "current-grade");
+});
+
+document.getElementById("target-grade-button").addEventListener("click", () => {
+  openModal("目標のグレードを選択", "target-grade");
+});
+
+document.getElementById("modal-close").addEventListener("click", () => {
+  modal.classList.add("hidden");
+});
+
+function openModal(title, targetId) {
+  modal.classList.remove("hidden");
+  modalTitle.textContent = title;
+  currentTarget = targetId;
+  gradeGrid.innerHTML = "";
+  const grades = generateGradeList();
   grades.forEach(grade => {
-    const div = document.createElement("div");
-    div.textContent = grade;
-    div.addEventListener("click", () => {
-      Array.from(container.children).forEach(child => child.classList.remove("selected"));
-      div.classList.add("selected");
-      callback(grade);
+    const btn = document.createElement("button");
+    btn.textContent = grade;
+    btn.addEventListener("click", () => {
+      document.getElementById(currentTarget + "-button").textContent = grade;
+      modal.classList.add("hidden");
     });
-    container.appendChild(div);
+    gradeGrid.appendChild(btn);
   });
 }
 
-createGradeGrid(currentGrid, grade => currentSelected = grade);
-createGradeGrid(targetGrid, grade => targetSelected = grade);
+// 計算処理
+document.getElementById("calculate-button").addEventListener("click", () => {
+  const start = document.getElementById("current-grade-button").textContent;
+  const end = document.getElementById("target-grade-button").textContent;
+  const startGrade = start.match(/^\d-\d$/) ? start : null;
+  const endGrade = end.match(/^\d-\d$/) ? end : null;
+  const error = document.getElementById("error-message");
+  const list = document.getElementById("material-list");
 
-document.getElementById("calculate").addEventListener("click", () => {
-  if (!currentSelected || !targetSelected) {
-    resultDiv.innerHTML = "<p style='color:red'>グレードを選択してください。</p>";
+  if (!startGrade || !endGrade) {
+    error.textContent = "正しいグレード範囲を選択してください。";
+    list.innerHTML = "";
     return;
   }
 
-  const data = {
-    "5-1": {"素材A": 2, "素材B": 3, "ゼニー": 1000},
-    "5-2": {"素材A": 3, "素材B": 4, "ゼニー": 1200},
-    "5-3": {"素材A": 4, "素材B": 5, "ゼニー": 1400},
-    "5-4": {"素材A": 5, "素材B": 6, "ゼニー": 1600},
-    "5-5": {"素材A": 6, "素材B": 7, "ゼニー": 1800},
-    "6-1": {"素材A": 7, "素材B": 8, "ゼニー": 2000},
-    "6-2": {"素材A": 8, "素材B": 9, "ゼニー": 2200},
-    "6-3": {"素材A": 9, "素材B": 10, "ゼニー": 2400},
-    "6-4": {"素材A": 10, "素材B": 11, "ゼニー": 2600},
-    "6-5": {"素材A": 11, "素材B": 12, "ゼニー": 2800},
-    "7-1": {"素材A": 12, "素材B": 13, "ゼニー": 3000}
-  };
+  error.textContent = "";
 
-  const startIndex = Object.keys(data).indexOf(currentSelected);
-  const endIndex = Object.keys(data).indexOf(targetSelected);
-  if (startIndex === -1 || endIndex === -1 || startIndex > endIndex) {
-    resultDiv.innerHTML = "<p style='color:red'>正しいグレード範囲を選択してください。</p>";
-    return;
-  }
-
-  const sliced = Object.keys(data).slice(startIndex, endIndex + 1);
-  const total = {};
-  sliced.forEach(key => {
-    const mat = data[key];
-    for (let k in mat) {
-      total[k] = (total[k] || 0) + mat[k];
-    }
-  });
-
-  let html = "<h3>必要素材とゼニー</h3><ul>";
-  for (let k in total) {
-    html += `<li>${k}: ${total[k]}</li>`;
-  }
-  html += "</ul>";
-  resultDiv.innerHTML = html;
+  // モック素材計算
+  list.innerHTML = `<h3>必要素材一覧</h3><ul>
+    <li>泡狐竜の鱗 ×10</li>
+    <li>泡狐竜の爪 ×6</li>
+    <li>竜骨【中】×12</li>
+    <li>防具精錬材 ×8</li>
+    <li>ゼニー：24000z</li>
+  </ul>`;
 });

@@ -1,105 +1,64 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const startButtons = document.querySelectorAll(".start-grade-btn");
-  const endButtons = document.querySelectorAll(".end-grade-btn");
-  const startDisplay = document.getElementById("start-grade");
-  const endDisplay = document.getElementById("end-grade");
-  const calculateButton = document.getElementById("calculate-button");
-  const resultSection = document.getElementById("result");
-  const resultList = document.getElementById("material-list");
-  const alertMessage = document.getElementById("alert-message");
+let currentGrade = null;
+let targetGrade = null;
 
-  let selectedStart = "";
-  let selectedEnd = "";
+document.addEventListener("DOMContentLoaded", () => {
+  createGradeButtons();
+});
 
-  startButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      selectedStart = button.textContent;
-      startDisplay.textContent = selectedStart;
-      highlightSelected(startButtons, button);
-    });
-  });
+function createGradeButtons() {
+  const grid = document.getElementById("grade-selection");
+  grid.innerHTML = "";
 
-  endButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      selectedEnd = button.textContent;
-      endDisplay.textContent = selectedEnd;
-      highlightSelected(endButtons, button);
-    });
-  });
+  const start = 5; // タマミツネは5-1から
+  const end = 10;
 
-  function highlightSelected(buttons, selectedButton) {
-    buttons.forEach((btn) => btn.classList.remove("selected"));
-    selectedButton.classList.add("selected");
+  for (let g = start; g <= end; g++) {
+    for (let s = 1; s <= 5; s++) {
+      const grade = `${g}-${s}`;
+      const btn = document.createElement("button");
+      btn.textContent = grade;
+
+      btn.addEventListener("click", () => {
+        if (!currentGrade) {
+          currentGrade = grade;
+          btn.classList.add("selected");
+        } else if (!targetGrade) {
+          targetGrade = grade;
+          btn.classList.add("selected");
+        } else {
+          currentGrade = grade;
+          targetGrade = null;
+          [...grid.children].forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+        }
+        document.getElementById("grade-range").textContent = `${currentGrade || "未選択"} → ${targetGrade || "未選択"}`;
+      });
+
+      grid.appendChild(btn);
+    }
+  }
+}
+
+function calculateMaterials() {
+  if (!currentGrade || !targetGrade) {
+    alert("現在・目標グレードを選んでください。");
+    return;
   }
 
-  calculateButton.addEventListener("click", () => {
-    const monsterName = "タマミツネ";
-    const equipmentType = "武器";
-    const start = selectedStart;
-    const end = selectedEnd;
+  const list = document.getElementById("material-list");
+  list.innerHTML = `
+    <p><strong>タマミツネ 武器</strong>（仮データ）</p>
+    <ul>
+      <li>泡狐竜の鱗 ×10</li>
+      <li>泡狐竜の甲殻 ×12</li>
+      <li>泡狐竜の鋭爪 ×6</li>
+      <li>竜骨【中】 ×5</li>
+      <li>洗練された鉱石 ×8</li>
+    </ul>
+    <p><strong>必要ゼニー:</strong> 36,000 z</p>
+  `;
+}
 
-    const startGrade = start.match(/^\d{1,2}-[1-5]$/) ? start : null;
-    const endGrade = end.match(/^\d{1,2}-[1-5]$/) ? end : null;
-
-    if (!startGrade || !endGrade) {
-      alertMessage.style.display = "block";
-      resultSection.style.display = "none";
-      return;
-    }
-
-    alertMessage.style.display = "none";
-
-    fetch("monster_materials.json")
-      .then((response) => response.json())
-      .then((data) => {
-        const materials =
-          data[monsterName] &&
-          data[monsterName][equipmentType] &&
-          data[monsterName][equipmentType].materials;
-
-        if (!materials) {
-          resultList.innerHTML = "<li>データが見つかりませんでした</li>";
-          resultSection.style.display = "block";
-          return;
-        }
-
-        const startIndex = Object.keys(materials).indexOf(startGrade);
-        const endIndex = Object.keys(materials).indexOf(endGrade);
-
-        if (startIndex === -1 || endIndex === -1 || startIndex > endIndex) {
-          alertMessage.style.display = "block";
-          resultSection.style.display = "none";
-          return;
-        }
-
-        const slicedGrades = Object.keys(materials).slice(
-          startIndex,
-          endIndex + 1
-        );
-
-        const totalMaterials = {};
-
-        slicedGrades.forEach((grade) => {
-          const gradeMaterials = materials[grade];
-          for (const [material, count] of Object.entries(gradeMaterials)) {
-            totalMaterials[material] =
-              (totalMaterials[material] || 0) + count;
-          }
-        });
-
-        resultList.innerHTML = "";
-        for (const [material, count] of Object.entries(totalMaterials)) {
-          const li = document.createElement("li");
-          li.textContent = `${material}: ${count}`;
-          resultList.appendChild(li);
-        }
-
-        resultSection.style.display = "block";
-      })
-      .catch((error) => {
-        console.error("エラー:", error);
-        resultList.innerHTML = "<li>計算中にエラーが発生しました</li>";
-        resultSection.style.display = "block";
-      });
-  });
-});
+function registerToTabs() {
+  alert("TodayとWeeklyに登録しました！（仮動作）");
+}

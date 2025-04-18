@@ -1,120 +1,28 @@
-body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 1rem;
-  background: #f9f9f9;
+.grade-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  margin-top: 10px;
 }
 
-main {
-  max-width: 600px;
-  margin: auto;
-  background: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-h1 {
-  font-size: 1.4rem;
-  margin-bottom: 1rem;
-}
-
-section {
-  margin-bottom: 1.5rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-input[type="date"] {
-  padding: 0.3rem;
-  font-size: 1rem;
-  margin-left: 0.5rem;
-}
-
-.grade-button {
-  padding: 0.5rem 1rem;
-  margin: 0.3rem;
-  font-size: 1rem;
-}
-
-button {
-  background-color: #3c80f6;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 0.5rem 1rem;
+.grade-grid button {
+  padding: 6px;
+  background-color: #f0f0f0;
+  border: 1px solid #aaa;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-button:hover {
-  opacity: 0.9;
-}
-
-.error-message {
-  color: red;
+.grade-grid button.selected {
+  background-color: #86c5ff;
   font-weight: bold;
-  margin-top: 1rem;
 }
 
-/* モーダル */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.material-list {
+  margin-top: 20px;
+  font-size: 14px;
 }
 
-.modal-content {
-  background: white;
-  padding: 1rem;
-  border-radius: 10px;
-  max-width: 90%;
-  text-align: center;
-}
-
-.modal-content h2 {
-  margin-bottom: 1rem;
-}
-
-#grade-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.4rem;
-}
-
-#grade-grid button {
-  background: #ccc;
-  border: none;
-  padding: 0.6rem;
-  border-radius: 4px;
-}
-
-#grade-grid button.selected {
-  background-color: #4CAF50;
-  color: white;
-}
-
-/* フッター */
-footer nav {
-  margin-top: 2rem;
-  text-align: center;
-}
-
-footer a {
-  margin: 0 1rem;
-  text-decoration: none;
-  color: #3c80f6;
-}
-
-/* 隠すクラス */
-.hidden {
-  display: none;
+.material-list ul {
+  padding-left: 20px;
 }

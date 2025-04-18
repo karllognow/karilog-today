@@ -1,0 +1,31 @@
+body {
+  font-family: sans-serif;
+  background: #f4f4f4;
+  padding: 20px;
+}
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  margin-bottom: 10px;
+}
+.grid div {
+  background: #ddd;
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+}
+.grid div.selected {
+  background: #4caf50;
+  color: white;
+}
+#result {
+  margin-top: 20px;
+}

@@ -1,0 +1,87 @@
+let currentGrade = "";
+let targetGrade = "";
+
+document.querySelectorAll(".grade-button").forEach(button => {
+  button.addEventListener("click", function () {
+    const section = this.closest(".grade-section");
+    const type = section.dataset.type;
+
+    section.querySelectorAll(".grade-button").forEach(btn => btn.classList.remove("selected"));
+    this.classList.add("selected");
+
+    if (type === "current") {
+      currentGrade = this.dataset.grade;
+    } else if (type === "target") {
+      targetGrade = this.dataset.grade;
+    }
+  });
+});
+
+document.getElementById("calculate-btn").addEventListener("click", function () {
+  const monster = document.getElementById("monster-name").textContent.trim();
+  const equipment = document.getElementById("equipment-type").textContent.trim();
+
+  const error = document.getElementById("error-text");
+  const result = document.getElementById("material-list");
+  error.textContent = "";
+  result.innerHTML = "";
+
+  if (!monster || !equipment || !currentGrade || !targetGrade) {
+    error.textContent = "すべての項目を選択してください。";
+    return;
+  }
+
+  const [currentMajor, currentMinor] = currentGrade.split("-").map(Number);
+  const [targetMajor, targetMinor] = targetGrade.split("-").map(Number);
+
+  const currentIndex = (currentMajor - 1) * 5 + (currentMinor - 1);
+  const targetIndex = (targetMajor - 1) * 5 + (targetMinor - 1);
+
+  if (currentIndex > targetIndex) {
+    error.textContent = "正しいグレード範囲を選択してください。";
+    return;
+  }
+
+  fetch("monster_materials.json")
+    .then(res => res.json())
+    .then(data => {
+      const key = `${monster}_${equipment}`;
+      const upgrades = data[key];
+
+      if (!upgrades) {
+        error.textContent = "該当の装備データが見つかりません。";
+        return;
+      }
+
+      const materialTotals = {};
+      let totalZenny = 0;
+
+      for (let i = currentIndex; i <= targetIndex; i++) {
+        const upgrade = upgrades[i];
+        if (!upgrade) continue;
+
+        for (let material of upgrade.materials) {
+          if (!materialTotals[material.name]) {
+            materialTotals[material.name] = 0;
+          }
+          materialTotals[material.name] += material.quantity;
+        }
+
+        totalZenny += upgrade.zenny;
+      }
+
+      for (let name in materialTotals) {
+        const li = document.createElement("li");
+        li.textContent = `${name} ×${materialTotals[name]}`;
+        result.appendChild(li);
+      }
+
+      const zennyLi = document.createElement("li");
+      zennyLi.textContent = `ゼニー：${totalZenny}z`;
+      result.appendChild(zennyLi);
+    })
+    .catch(err => {
+      console.error(err);
+      error.textContent = "データ取得中にエラーが発生しました。";
+    });
+});

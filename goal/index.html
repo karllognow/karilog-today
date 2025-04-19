@@ -1,1 +1,101 @@
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>狩ログNOW - GOAL</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #111;
+      color: white;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #222;
+      padding: 15px 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    header .menu-icon {
+      font-size: 24px;
+      cursor: pointer;
+      color: #48C08A;
+    }
+    .section {
+      padding: 20px;
+      border-bottom: 1px solid #444;
+    }
+    .event-section h3, .goal-section h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #48C08A;
+    }
+    .goal-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px;
+      background-color: #1c1c1c;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      align-items: center;
+    }
+    .goal-item span {
+      font-size: 14px;
+    }
+    .goal-arrow {
+      font-size: 18px;
+      color: #48C08A;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #000;
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      border-top: 1px solid #333;
+    }
+    footer a {
+      color: #48C08A;
+      text-decoration: none;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  狩ログNOW - GOAL
+  <div class="menu-icon">≡</div>
+</header>
+
+<div class="section event-section">
+  <h3>4月イベント内容</h3>
+  <p>1週目：緊急クエスト「◯◯◯」開催</p>
+  <p>2週目：装備強化イベント</p>
+  <p>3週目：希少種出現率UP</p>
+  <p>4週目：素材ドロップ2倍</p>
+</div>
+
+<div class="section goal-section">
+  <h3>装備製作目標</h3>
+  <div class="goal-item">
+    <span>タマミツネ 武器　G5-1 → G10-5（4/15～4/27）</span>
+    <span class="goal-arrow">＞</span>
+  </div>
+</div>
+
+<footer>
+  <a href="#">HOME</a>
+  <a href="#">TODAY</a>
+  <a href="#">WEEKLY</a>
+  <a href="#">GOAL</a>
+</footer>
+
+</body>
+</html>

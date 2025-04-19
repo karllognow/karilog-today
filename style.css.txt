@@ -1,0 +1,101 @@
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+header, footer {
+  background-color: #333;
+  color: #fff;
+  padding: 1em;
+  text-align: center;
+}
+
+main {
+  padding: 1em;
+}
+
+section {
+  margin-bottom: 1.5em;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+select, input[type="text"], input[type="date"] {
+  width: 100%;
+  padding: 0.5em;
+  font-size: 1em;
+  margin-bottom: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.grade-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  margin-bottom: 0.5em;
+}
+
+.grade-grid button {
+  padding: 0.6em;
+  font-size: 0.9em;
+  background-color: #eee;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.grade-grid button.selected {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+}
+
+button {
+  width: 100%;
+  padding: 1em;
+  font-size: 1.1em;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1em;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.material-list {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 1em;
+  border-radius: 6px;
+}
+
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  background-color: #222;
+  padding: 0.8em 0;
+}
+
+.bottom-nav a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.95em;
+}
+
+.bottom-nav a.active,
+.bottom-nav a:hover {
+  color: #fff;
+  font-weight: bold;
+}

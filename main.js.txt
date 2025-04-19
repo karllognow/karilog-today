@@ -1,0 +1,111 @@
+const monsterSelect = document.getElementById("monsterSelect");
+const typeSelect = document.getElementById("typeSelect");
+const gradeStartBtn = document.getElementById("gradeStartBtn");
+const gradeGoalBtn = document.getElementById("gradeGoalBtn");
+const selectedStartGrade = document.getElementById("selectedStartGrade");
+const selectedGoalGrade = document.getElementById("selectedGoalGrade");
+const gridContainer = document.getElementById("gradeGrid");
+const calcButton = document.getElementById("calcBtn");
+const materialList = document.getElementById("materialList");
+
+// タイル生成用
+function createGradeTiles(start, end, onClickCallback) {
+  gridContainer.innerHTML = "";
+  for (let g = start; g <= end; g++) {
+    for (let s = 1; s <= 5; s++) {
+      const grade = `${g}-${s}`;
+      const tile = document.createElement("button");
+      tile.textContent = grade;
+      tile.addEventListener("click", () => {
+        onClickCallback(grade);
+        [...gridContainer.children].forEach(btn => btn.classList.remove("selected"));
+        tile.classList.add("selected");
+      });
+      gridContainer.appendChild(tile);
+    }
+  }
+}
+
+// タイル選択モード
+let selectingStart = false;
+let selectingGoal = false;
+
+gradeStartBtn.addEventListener("click", () => {
+  selectingStart = true;
+  selectingGoal = false;
+  createGradeTiles(5, 10, (grade) => {
+    selectedStartGrade.textContent = grade;
+  });
+});
+
+gradeGoalBtn.addEventListener("click", () => {
+  selectingStart = false;
+  selectingGoal = true;
+  createGradeTiles(5, 10, (grade) => {
+    selectedGoalGrade.textContent = grade;
+  });
+});
+
+// 仮のマスターデータ（今後JSONで差し替え）
+const sampleData = {
+  "タマミツネ": {
+    "武器": {
+      "5-1": [{ name: "泡狐竜の鱗", count: 2 }, { name: "泡狐竜の甲殻", count: 4 }],
+      "5-2": [{ name: "泡狐竜の甲殻", count: 5 }, { name: "竜骨【小】", count: 3 }],
+      "5-3": [{ name: "泡狐竜の爪", count: 2 }],
+      "5-4": [{ name: "泡狐竜の爪", count: 2 }, { name: "竜骨【中】", count: 3 }],
+      "5-5": [{ name: "泡狐竜の鱗", count: 5 }],
+      // 6-1〜10-5は省略
+    }
+  }
+};
+
+// 計算ボタン
+calcButton.addEventListener("click", () => {
+  const monster = monsterSelect.value;
+  const type = typeSelect.value;
+  const startGrade = selectedStartGrade.textContent;
+  const goalGrade = selectedGoalGrade.textContent;
+
+  if (!monster || !type || !startGrade || !goalGrade) {
+    alert("すべての項目を選択してください。");
+    return;
+  }
+
+  const startParts = startGrade.split("-").map(Number);
+  const goalParts = goalGrade.split("-").map(Number);
+  const startNum = startParts[0] * 10 + startParts[1];
+  const goalNum = goalParts[0] * 10 + goalParts[1];
+
+  if (goalNum < startNum) {
+    alert("目標グレードは現在のグレード以上を選んでください。");
+    return;
+  }
+
+  const upgrades = Object.keys(sampleData[monster]?.[type] || {}).filter(grade => {
+    const parts = grade.split("-").map(Number);
+    const num = parts[0] * 10 + parts[1];
+    return num >= startNum && num <= goalNum;
+  });
+
+  const materials = {};
+
+  upgrades.forEach(grade => {
+    (sampleData[monster][type][grade] || []).forEach(mat => {
+      materials[mat.name] = (materials[mat.name] || 0) + mat.count;
+    });
+  });
+
+  materialList.innerHTML = "<h3>必要素材</h3>";
+  if (Object.keys(materials).length === 0) {
+    materialList.innerHTML += "<p>該当データがありません。</p>";
+  } else {
+    const ul = document.createElement("ul");
+    Object.entries(materials).forEach(([name, count]) => {
+      const li = document.createElement("li");
+      li.textContent = `${name} × ${count}`;
+      ul.appendChild(li);
+    });
+    materialList.appendChild(ul);
+  }
+});

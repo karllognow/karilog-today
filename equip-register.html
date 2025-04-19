@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<title>装備登録</title>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+<style>
+    body {
+      font-family: sans-serif;
+      background-color: #fffde7;
+      padding: 30px;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 300px;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    .radio-group {
+      margin-top: 10px;
+    }
+    .modal {
+      display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%;
+      height: 100%; background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center;
+    }
+    .modal-content {
+      margin: auto;
+      background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 600px;
+    }
+    .grade-grid {
+      display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; margin-top: 10px;
+    }
+    .grade-button {
+      padding: 6px; border: 1px solid #ccc; cursor: pointer; text-align: center;
+      background: #eee; border-radius: 4px;
+    }
+    .grade-button.disabled {
+      background: #ddd; color: #aaa; pointer-events: none;
+    }
+    .grade-button.selected {
+      background: #4CAF50; color: white;
+    }
+    #resultTable {
+      margin-top: 20px; border-collapse: collapse; width: 100%;
+    }
+    #resultTable th, #resultTable td {
+      border: 1px solid #ccc; padding: 6px;
+    }
+  
+    @media (max-width: 600px) {
+      input, select, button {
+        width: 100% !important;
+        font-size: 16px;
+      }
+      .modal-content {
+        width: 90% !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        position: fixed !important;
+      }
+    }
+    </style>
+</head>
+<body>
+<h2>装備目標登録</h2>
+<label>モンスター選択：</label>
+<select id="monsterSelect" style="width:300px;">
+<option></option>
+<option>ドスジャグラス</option>
+<option>クルルヤック</option>
+<option>プケプケ</option>
+<option>プケプケ亜種</option>
+<option>ボルボロス</option>
+<option>ドスギルオス</option>
+<option>トビカガチ</option>
+<option>パオウルムー</option>
+<option>パオウルムー亜種</option>
+<option>ジュラトドス</option>
+<option>アンジャナフ</option>
+<option>リオレイア</option>
+<option>リオレイア亜種</option>
+<option>リオレイア希少種</option>
+<option>レイギエナ</option>
+<option>ディアブロス</option>
+<option>ディアブロス亜種</option>
+<option>リオレウス</option>
+<option>リオレウス亜種</option>
+<option>リオレウス希少種</option>
+<option>ラドバルキン</option>
+<option>バフバロ</option>
+<option>ベリオロス</option>
+<option>ジンオウガ</option>
+<option>ツィツィヤック</option>
+<option>オドガロン</option>
+<option>オドガロン亜種</option>
+<option>イビルジョー</option>
+<option>バサルモス</option>
+<option>フルフル</option>
+<option>クシャルダオラ</option>
+<option>タマミツネ</option>
+<option>テオ・テスカトル</option>
+<option>マガイマガド</option>
+<option>ラージャン</option>
+<option>アケノシルム</option>
+<option>ティガレックス</option>
+<option>ウルクスス</option>
+<option>ラングロトラ</option>
+<option>イソネミクニ</option>
+<option>キリン</option>
+<option>バゼルギウス</option>
+<option>チャタカブラ</option>
+<option>アオアシラ</option>
+<option>ディノバルド</option>
+</select><label>装備タイプ：</label><select id="equipType" style="width:300px;"><option value=""></option><option value="weapon">武器</option><option value="armor">防具</option></select><button id="openModal" style="display: inline-block; margin-top: 20px;">グレードを選ぶ</button><div style="display: flex; gap: 20px; align-items: center; margin-top: 20px;"><label>開始日：</label><input type="date"/><label>終了日：</label><input type="date"/></div>
+<label>現在のグレード：</label>
+<input id="currentGrade" readonly="" type="text"/>
+<label>目標のグレード：</label>
+<input id="targetGrade" readonly="" type="text"/>
+<div id="selectedRange"></div>
+<button id="calcButton" style="margin-top: 20px;">計算</button><table id="resultTable"></table>
+<!-- モーダル -->
+<div class="modal" id="gradeModal">
+<div class="modal-content">
+<h3 id="selectionStep">現在のグレードを選択してください</h3>
+<div class="grade-grid" id="gradeGrid"></div>
+<button id="closeModal" style="margin-top: 15px;">キャンセル</button>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="tamamitsune_weapon.js"></script>
+<script>
+const allGrades = [];
+for (let i = 1; i <= 10; i++) {
+  for (let j = 1; j <= 5; j++) {
+    allGrades.push(`${i}-${j}`);
+  }
+}
+const startGrade = "5-1";
+let selectedStart = null, selectedEnd = null, step = 0;
+
+document.addEventListener("DOMContentLoaded", () => {
+  $('#monsterSelect').select2({ placeholder: "モンスターを検索・選択", allowClear: true });
+  const openBtn = document.getElementById("openModal");
+  const monsterSelect = document.getElementById("monsterSelect");
+  const equipTypeRadios = document.querySelectorAll("input[name='equipType']");
+
+  function checkState() {
+    const monster = monsterSelect.value;
+    const equip = document.getElementById("equipType").value;
+    if (monster.includes("タマミツネ") && equip === "weapon") {
+      openBtn.style.display = "inline-block";
+    } else {
+      openBtn.style.display = "none";
+    }
+  }
+
+  monsterSelect.addEventListener("change", checkState);
+  equipTypeRadios.forEach(r => r.addEventListener("change", checkState));
+  checkState();
+
+  openBtn.onclick = () => {
+    step = 0;
+    selectedStart = null;
+    selectedEnd = null;
+    document.getElementById("selectionStep").textContent = "現在のグレードを選択してください";
+    renderGrid();
+    document.getElementById("gradeModal").style.display = "flex";
+  };
+
+  document.getElementById("closeModal").onclick = () => {
+    document.getElementById("gradeModal").style.display = "none";
+  };
+});
+
+function gradeIndex(g) { return allGrades.indexOf(g); }
+
+function renderGrid() {
+  const grid = document.getElementById("gradeGrid");
+  grid.innerHTML = "";
+  allGrades.forEach(g => {
+    const btn = document.createElement("div");
+    btn.textContent = g;
+    btn.className = "grade-button";
+    if (gradeIndex(g) < gradeIndex(startGrade)) btn.classList.add("disabled");
+    btn.onclick = () => {
+      if (step === 0) {
+        selectedStart = g;
+        step = 1;
+        document.getElementById("selectionStep").textContent = "目標のグレードを選択してください";
+        renderGrid();
+      } else {
+        selectedEnd = g;
+        document.getElementById("gradeModal").style.display = "none";
+        document.getElementById("currentGrade").value = selectedStart;
+        document.getElementById("targetGrade").value = selectedEnd;
+        showResults();
+      }
+    };
+    if (g === selectedStart || g === selectedEnd) btn.classList.add("selected");
+    grid.appendChild(btn);
+  });
+}
+
+function showResults() {
+  const range = allGrades.slice(gradeIndex(selectedStart)+1, gradeIndex(selectedEnd)+1);
+  const data = window.tamamitsuneWeaponData;
+  const matMap = {};
+  let totalZenny = 0;
+
+  range.forEach(g => {
+    const info = data[g];
+    if (!info) return;
+    totalZenny += info.zenny;
+    info.materials.forEach(m => {
+      if (!matMap[m.name]) matMap[m.name] = 0;
+      matMap[m.name] += m.count;
+    });
+  });
+
+  document.getElementById("selectedRange").textContent = `強化範囲：${selectedStart} → ${selectedEnd}`;
+
+  const table = document.getElementById("resultTable");
+  table.innerHTML = "<tr><th>素材名</th><th>合計数</th></tr>";
+  for (let name in matMap) {
+    const row = table.insertRow();
+    row.insertCell().textContent = name;
+    row.insertCell().textContent = matMap[name];
+  }
+  const row = table.insertRow();
+  row.insertCell().textContent = "必要ゼニー";
+  row.insertCell().textContent = totalZenny + " z";
+}
+</script>
+</body>
+</html>

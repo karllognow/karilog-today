@@ -1,0 +1,54 @@
+const currentGradeGrid = document.getElementById("current-grade-grid");
+const targetGradeGrid = document.getElementById("target-grade-grid");
+const calculateBtn = document.getElementById("calculate-btn");
+const materialList = document.getElementById("material-list");
+
+let selectedCurrent = null;
+let selectedTarget = null;
+
+function createGradeButtons(container, onSelect) {
+  const grades = [];
+  for (let g = 5; g <= 10; g++) {
+    for (let s = 1; s <= 5; s++) {
+      grades.push(`${g}-${s}`);
+    }
+  }
+
+  grades.forEach((grade) => {
+    const btn = document.createElement("button");
+    btn.textContent = grade;
+    btn.addEventListener("click", () => {
+      [...container.children].forEach((b) => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      onSelect(grade);
+    });
+    container.appendChild(btn);
+  });
+}
+
+createGradeButtons(currentGradeGrid, (val) => {
+  selectedCurrent = val;
+});
+
+createGradeButtons(targetGradeGrid, (val) => {
+  selectedTarget = val;
+});
+
+calculateBtn.addEventListener("click", () => {
+  if (!selectedCurrent || !selectedTarget) {
+    alert("グレード範囲を正しく選択してください");
+    return;
+  }
+
+  // 仮データ
+  const sampleMaterials = [
+    "泡狐竜の鱗 ×10",
+    "泡狐竜の爪 ×6",
+    "竜骨【中】×12",
+    "防具精錬材 ×8",
+    "ゼニー：24000z"
+  ];
+
+  materialList.innerHTML = `<h3>必要素材一覧</h3><ul>${sampleMaterials.map(m => `<li>${m}</li>`).join("")}</ul>`;
+  materialList.classList.remove("hidden");
+});

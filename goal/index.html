@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>狩ログNOW - GOAL</title>
   <style>
     body {
@@ -26,34 +26,35 @@
       cursor: pointer;
       color: #48C08A;
     }
-    .event-box {
-      border: 1px solid #48C08A;
-      padding: 12px;
-      margin: 16px;
-      margin-top: 8px;
-      margin-bottom: 8px;
-      border-radius: 8px;
-      background-color: #1a1a1a;
+    .section {
+      padding: 16px;
     }
-    .event-header {
+    .event-toggle-box {
+      border: 1px solid #48C08A;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+    }
+    .event-toggle-header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
       color: #48C08A;
-      font-weight: bold;
       cursor: pointer;
     }
-    .event-details {
-      margin-top: 12px;
-      font-size: 13px;
-      color: white;
-    }
-    .event-details.hidden {
+    .event-toggle-details {
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.4;
       display: none;
     }
     .goal-section h3 {
+      font-size: 16px;
       border-bottom: 1px solid #48C08A;
       padding-bottom: 6px;
       margin-bottom: 8px;
+      color: #48C08A;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -114,13 +115,13 @@
   <div class="menu-icon">≡</div>
 </header>
 
-<div class="section event-section">
-  <div class="event-box">
-    <div class="event-header" onclick="toggleEventDetails()">
+<div class="section">
+  <div class="event-toggle-box">
+    <div class="event-toggle-header" onclick="toggleDetails()">
       <span>4月のイベント</span>
       <span id="toggle-icon">＋</span>
     </div>
-    <div id="event-details" class="event-details hidden">
+    <div class="event-toggle-details" id="event-details">
       <ul>
         <li><strong>もっと！一狩りいこうぜ！イベント</strong><br>
         期間 2025年4月7日(月)9:00 〜 4月13日(日)23:59</li>
@@ -164,12 +165,13 @@
 </footer>
 
 <script>
-function toggleEventDetails() {
-  const details = document.getElementById("event-details");
-  const icon = document.getElementById("toggle-icon");
-  details.classList.toggle("hidden");
-  icon.textContent = details.classList.contains("hidden") ? "＋" : "－";
-}
+  function toggleDetails() {
+    const details = document.getElementById("event-details");
+    const icon = document.getElementById("toggle-icon");
+    const isVisible = details.style.display === "block";
+    details.style.display = isVisible ? "none" : "block";
+    icon.textContent = isVisible ? "＋" : "−";
+  }
 </script>
 
 </body>

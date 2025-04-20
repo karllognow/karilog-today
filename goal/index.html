@@ -151,6 +151,53 @@
 .monster-name {
   font-size: 12px;
 }
+.possess-section h3 {
+  font-size: 16px;
+  border-bottom: 1px solid #48C08A;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  color: #48C08A;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.possess-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background-color: #1c1c1c;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #48C08A;
+}
+
+.possess-label {
+  flex: 1.5;
+  font-size: 8px;
+}
+
+.skill-highlight {
+  background-color: #48C08A;
+  color: black;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.skill-color {
+  font-size: 12px;
+  flex: 1;
+}
+
+.goal-arrow {
+  flex-shrink: 0;
+  font-size: 18px;
+  color: #48C08A;
+}
 </style>
 </head>
 <body>
@@ -192,6 +239,33 @@
   <button id="show-more-button" style="color:#48C08A; background: none; border: none; font-size: 12px; cursor: pointer;">
     ＋すべて表示
   </button>
+</div>
+<div class="section possess-section">
+  <h3>
+    憑依錬成目標
+    <span class="goal-add-button">＋</span>
+  </h3>
+
+  <div class="possess-item">
+    <div class="possess-label">
+      <div class="monster-name">ジンオウガ</div>
+      <div class="equip-part">腰</div>
+    </div>
+    <span class="skill-highlight">攻撃強化Lv2</span>
+    <span class="skill-color">青</span>
+    <span class="goal-arrow">＞</span>
+  </div>
+
+  <div class="possess-item">
+    <div class="possess-label">
+      <div class="monster-name">イビルジョー</div>
+      <div class="equip-part">脚</div>
+    </div>
+    <span class="skill-highlight">火属性強化Lv1</span>
+    <span class="skill-color">赤</span>
+    <span class="goal-arrow">＞</span>
+  </div>
+
 </div>
 <footer>
 <a href="/karilog-today/">HOME</a>

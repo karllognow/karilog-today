@@ -3,173 +3,182 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
+  <title>狩ログNOW - HOME</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>狩ログNOW - GOAL</title>
   <style>
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-      background-color: #111;
-      color: white;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #000;
+      color: #fff;
     }
+
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #222;
-      padding: 14px 16px;
-      font-size: 18px;
-      font-weight: bold;
+      padding: 16px;
+      background-color: #111;
+      border-bottom: 1px solid #333;
     }
-    header .menu-icon {
-      font-size: 22px;
-      cursor: pointer;
+
+    header h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .setting-button {
+      font-size: 24px;
       color: #48C08A;
+      background: none;
+      border: none;
+      cursor: pointer;
     }
-    .event-box {
-      border: 1px solid #48C08A;
-      padding: 12px;
-      margin: 16px;
-      margin-top: 8px;
-      margin-bottom: 8px;
-      border-radius: 8px;
-      background-color: #1a1a1a;
-    }
-    .event-header {
+
+    .info-section {
+      padding: 16px;
+      font-size: 16px;
+      border-bottom: 1px solid #222;
       display: flex;
       justify-content: space-between;
-      color: #48C08A;
-      font-weight: bold;
-      cursor: pointer;
+      align-items: center;
     }
-    .event-details {
-      margin-top: 12px;
-      font-size: 13px;
+
+    .calendar-section {
+      padding: 16px;
+      border-bottom: 1px solid #222;
+    }
+
+    .calendar-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .calendar-day {
+      background-color: #222;
+      padding: 8px;
+      text-align: center;
+      border-radius: 4px;
+    }
+
+    .calendar-day.today {
+      background-color: #48C08A;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .calendar-day.current-week {
+      background-color: #444;
       color: white;
     }
-    .event-details.hidden {
-      display: none;
+
+    .summary-section {
+      padding: 16px;
+      font-size: 16px;
+      border-bottom: 1px solid #222;
     }
-    .goal-section h3 {
-      border-bottom: 1px solid #48C08A;
-      padding-bottom: 6px;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .goal-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 12px;
-      background-color: #1c1c1c;
-      margin-bottom: 10px;
-      border-radius: 6px;
-      align-items: center;
-      border: 1px solid #48C08A;
-    }
-    .goal-item span {
-      font-size: 13px;
-    }
-    .goal-item .highlight {
-      background-color: #48C08A;
-      color: black;
-      font-weight: bold;
-      padding: 2px 6px;
-      border-radius: 4px;
-      margin: 0 6px;
-    }
-    .goal-arrow {
-      font-size: 18px;
-      color: #48C08A;
-    }
-    .goal-add-button {
-      font-size: 20px;
-      font-weight: bold;
-      color: #48C08A;
-      cursor: pointer;
-    }
+
     footer {
+      display: flex;
+      justify-content: space-around;
+      background-color: #111;
+      border-top: 1px solid #333;
+      padding: 12px 0;
       position: fixed;
       bottom: 0;
       width: 100%;
-      background-color: #000;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      border-top: 1px solid #333;
     }
+
     footer a {
       color: #48C08A;
       text-decoration: none;
-      font-size: 13px;
-      padding: 6px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
 
 <header>
-  狩ログNOW - GOAL
-  <div class="menu-icon">≡</div>
+  <h1>狩ログNOW - HOME</h1>
+  <button class="setting-button">≡</button>
 </header>
 
-<div class="section event-section">
-  <div class="event-box">
-    <div class="event-header" onclick="toggleEventDetails()">
-      <span>4月のイベント</span>
-      <span id="toggle-icon">＋</span>
-    </div>
-    <div id="event-details" class="event-details hidden">
-      <ul>
-        <li><strong>もっと！一狩りいこうぜ！イベント</strong><br>
-        期間 2025年4月7日(月)9:00 〜 4月13日(日)23:59</li>
-        <li><strong>イースターイベント</strong><br>
-        期間 2025年4月14日(月)9:00 〜 4月27日(日)23:59</li>
-        <li><strong>漂移錬成&モンスターピックアップ</strong><br>
-        期間 2025年4月28日(月)9:00 〜 5月4日(日)23:59</li>
-      </ul>
-    </div>
-  </div>
+<div class="info-section">
+  <span>HR: 52</span>
+  <span>所持ゼニー: 13420z</span>
 </div>
 
-<div class="section goal-section">
-  <h3>
-    装備製作目標
-    <span class="goal-add-button">＋</span>
-  </h3>
-  <div class="goal-item">
-    <span>タマミツネ 武器 <span class="highlight">G5-1 → G10-5</span>（4/15～4/27）</span>
-    <span class="goal-arrow">＞</span>
-  </div>
-  <div class="goal-item">
-    <span>オドガロン亜種 頭 <span class="highlight">未生産 → G8-1</span>（4/20～4/25）</span>
-    <span class="goal-arrow">＞</span>
-  </div>
-  <div class="goal-item">
-    <span>クルルヤック 脚 <span class="highlight">G2-2 → G8-1</span>（4/26～4/30）</span>
-    <span class="goal-arrow">＞</span>
-  </div>
-  <div class="goal-item">
-    <span>ティガレックス 武器 <span class="highlight">未生産 → G10-5</span>（4/20～5/1）</span>
-    <span class="goal-arrow">＞</span>
-  </div>
+<div class="calendar-section">
+  <div class="calendar-title" id="calendarTitle"></div>
+  <div class="calendar-grid" id="calendarGrid"></div>
+</div>
+
+<div class="summary-section">
+  【今週の進捗】
+  <ul>
+    <li>討伐数：42体</li>
+    <li>集めたゼニー：15800z</li>
+    <li>歩行距離：4.3km</li>
+  </ul>
 </div>
 
 <footer>
-  <a href="/karilog-today/">HOME</a>
+  <a href="#">HOME</a>
   <a href="#">TODAY</a>
   <a href="#">WEEKLY</a>
-  <a href="/karilog-today/goal/">GOAL</a>
+  <a href="#">GOAL</a>
 </footer>
 
 <script>
-function toggleEventDetails() {
-  const details = document.getElementById("event-details");
-  const icon = document.getElementById("toggle-icon");
-  details.classList.toggle("hidden");
-  icon.textContent = details.classList.contains("hidden") ? "＋" : "－";
-}
+  function generateCalendar() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const firstDayRaw = new Date(year, month, 1).getDay();
+    const firstDay = (firstDayRaw + 6) % 7; // 月曜=0, 火曜=1, ..., 日曜=6
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    const calendarTitle = document.getElementById("calendarTitle");
+    const calendarGrid = document.getElementById("calendarGrid");
+    calendarTitle.textContent = `${year}年 ${month + 1}月`;
+
+    calendarGrid.innerHTML = "";
+
+    for (let i = 0; i < firstDay; i++) {
+      const emptyCell = document.createElement("div");
+      emptyCell.className = "calendar-day";
+      calendarGrid.appendChild(emptyCell);
+    }
+
+    for (let date = 1; date <= lastDate; date++) {
+      const day = document.createElement("div");
+      day.textContent = date;
+      day.className = "calendar-day";
+
+      const currentWeek = Math.floor((date + firstDay - 1) / 7);
+      const thisWeek = Math.floor((today.getDate() + firstDay - 1) / 7);
+      if (
+        date === today.getDate() &&
+        year === today.getFullYear() &&
+        month === today.getMonth()
+      ) {
+        day.classList.add("today");
+      } else if (currentWeek === thisWeek) {
+        day.classList.add("current-week");
+      }
+
+      calendarGrid.appendChild(day);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", generateCalendar);
 </script>
 
 </body>

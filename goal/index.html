@@ -106,7 +106,12 @@
       font-size: 13px;
       padding: 6px;
     }
-  </style>
+  
+    #toggle-icon {
+      font-size: 13px;
+    }
+
+</style>
 </head>
 <body>
 
@@ -119,7 +124,7 @@
   <div class="event-toggle-box">
     <div class="event-toggle-header" onclick="toggleDetails()">
       <span>4月のイベント</span>
-      <span id="toggle-icon">＋</span>
+      <span id="toggle-icon">＋ タップして詳細</span>
     </div>
     <div class="event-toggle-details" id="event-details">
       <ul>
@@ -170,7 +175,7 @@
     const icon = document.getElementById("toggle-icon");
     const isVisible = details.style.display === "block";
     details.style.display = isVisible ? "none" : "block";
-    icon.textContent = isVisible ? "＋" : "−";
+    icon.textContent = isVisible ? "＋ タップして詳細" : "－ タップして詳細";
   }
 </script>
 

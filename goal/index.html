@@ -203,18 +203,22 @@
 </script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const toggleButton = document.getElementById("toggleGoals");
+    const toggleButton = document.getElementById("show-more-button");
     const hiddenGoals = document.querySelectorAll(".goal-item.hidden-goal");
+
+    if (!toggleButton) {
+      console.warn("ボタンが見つかりません。IDが正しいか確認してください。");
+      return;
+    }
 
     toggleButton.addEventListener("click", function () {
       hiddenGoals.forEach(item => {
         item.style.display = item.style.display === "none" ? "flex" : "none";
       });
 
-      // ボタンの文言も切り替える場合（任意）
-      toggleButton.textContent = toggleButton.textContent === "＋もっと見る"
-        ? "ー閉じる"
-        : "＋もっと見る";
+      toggleButton.textContent = toggleButton.textContent === "＋すべて表示"
+        ? "ーすべて非表示"
+        : "＋すべて表示";
     });
   });
 </script>

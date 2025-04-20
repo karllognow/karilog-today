@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>狩ログNOW - GOAL</title>
   <style>
     body {
@@ -26,30 +26,68 @@
       cursor: pointer;
       color: #48C08A;
     }
-    .section {
-      padding: 16px;
-      border-bottom: 1px solid #444;
+    .event-box {
+      border: 1px solid #48C08A;
+      padding: 12px;
+      margin: 16px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      background-color: #1a1a1a;
     }
-    .event-section h3, .goal-section h3 {
-      font-size: 16px;
-      margin-bottom: 10px;
+    .event-header {
+      display: flex;
+      justify-content: space-between;
       color: #48C08A;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .event-details {
+      margin-top: 12px;
+      font-size: 13px;
+      color: white;
+    }
+    .event-details.hidden {
+      display: none;
+    }
+    .goal-section h3 {
+      border-bottom: 1px solid #48C08A;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .goal-item {
       display: flex;
       justify-content: space-between;
-      padding: 6px 10px;
+      padding: 12px;
       background-color: #1c1c1c;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
       border-radius: 6px;
       align-items: center;
+      border: 1px solid #48C08A;
     }
     .goal-item span {
-      font-size: 12px;
+      font-size: 13px;
+    }
+    .goal-item .highlight {
+      background-color: #48C08A;
+      color: black;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin: 0 6px;
     }
     .goal-arrow {
-      font-size: 16px;
+      font-size: 18px;
       color: #48C08A;
+    }
+    .goal-add-button {
+      font-size: 20px;
+      font-weight: bold;
+      color: #48C08A;
+      cursor: pointer;
     }
     footer {
       position: fixed;
@@ -77,17 +115,43 @@
 </header>
 
 <div class="section event-section">
-  <h3>4月イベント内容</h3>
-  <p>1週目：緊急クエスト「◯◯◯」開催</p>
-  <p>2週目：装備強化イベント</p>
-  <p>3週目：希少種出現率UP</p>
-  <p>4週目：素材ドロップ2倍</p>
+  <div class="event-box">
+    <div class="event-header" onclick="toggleEventDetails()">
+      <span>4月のイベント</span>
+      <span id="toggle-icon">＋</span>
+    </div>
+    <div id="event-details" class="event-details hidden">
+      <ul>
+        <li><strong>もっと！一狩りいこうぜ！イベント</strong><br>
+        期間 2025年4月7日(月)9:00 〜 4月13日(日)23:59</li>
+        <li><strong>イースターイベント</strong><br>
+        期間 2025年4月14日(月)9:00 〜 4月27日(日)23:59</li>
+        <li><strong>漂移錬成&モンスターピックアップ</strong><br>
+        期間 2025年4月28日(月)9:00 〜 5月4日(日)23:59</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <div class="section goal-section">
-  <h3>装備製作目標</h3>
+  <h3>
+    装備製作目標
+    <span class="goal-add-button">＋</span>
+  </h3>
   <div class="goal-item">
-    <span>タマミツネ 武器　G5-1 → G10-5（4/15～4/27）</span>
+    <span>タマミツネ 武器 <span class="highlight">G5-1 → G10-5</span>（4/15～4/27）</span>
+    <span class="goal-arrow">＞</span>
+  </div>
+  <div class="goal-item">
+    <span>オドガロン亜種 頭 <span class="highlight">未生産 → G8-1</span>（4/20～4/25）</span>
+    <span class="goal-arrow">＞</span>
+  </div>
+  <div class="goal-item">
+    <span>クルルヤック 脚 <span class="highlight">G2-2 → G8-1</span>（4/26～4/30）</span>
+    <span class="goal-arrow">＞</span>
+  </div>
+  <div class="goal-item">
+    <span>ティガレックス 武器 <span class="highlight">未生産 → G10-5</span>（4/20～5/1）</span>
     <span class="goal-arrow">＞</span>
   </div>
 </div>
@@ -98,6 +162,15 @@
   <a href="#">WEEKLY</a>
   <a href="/karilog-today/goal/">GOAL</a>
 </footer>
+
+<script>
+function toggleEventDetails() {
+  const details = document.getElementById("event-details");
+  const icon = document.getElementById("toggle-icon");
+  details.classList.toggle("hidden");
+  icon.textContent = details.classList.contains("hidden") ? "＋" : "－";
+}
+</script>
 
 </body>
 </html>

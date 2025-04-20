@@ -142,6 +142,9 @@
       font-size: 18px;
       color: #48C08A;
     }
+    .hidden-goal {
+  display: none;
+}
 </style>
 </head>
 <body>
@@ -176,7 +179,13 @@
 
 
 
-<div class="goal-item"><div class="goal-label"><div class="monster-name" style="font-size: 12px;">タマミツネ</div><div class="equip-part" style="font-size: 12px;">武器</div></div><span class="highlight">G5-1 → G10-5</span><span class="goal-date">（4/15～4/27）</span><span class="goal-arrow">＞</span></div><div class="goal-item"><div class="goal-label"><div class="monster-name" style="font-size: 12px;">オドガロン亜種</div><div class="equip-part" style="font-size: 12px;">頭</div></div><span class="highlight">未生産 → G8-1</span><span class="goal-date">（4/20～4/25）</span><span class="goal-arrow">＞</span></div><div class="goal-item"><div class="goal-label"><div class="monster-name" style="font-size: 12px;">クルルヤック</div><div class="equip-part" style="font-size: 12px;">脚</div></div><span class="highlight">G2-2 → G8-1</span><span class="goal-date">（4/26～4/30）</span><span class="goal-arrow">＞</span></div><div class="goal-item"><div class="goal-label"><div class="monster-name" style="font-size: 12px;">ティガレックス</div><div class="equip-part" style="font-size: 12px;">武器</div></div><span class="highlight">未生産 → G10-5</span><span class="goal-date">（4/20～5/1）</span><span class="goal-arrow">＞</span></div></div>
+<div class="goal-item"><div class="goal-label"><div class="monster-name" style="font-size: 12px;">タマミツネ</div><div class="equip-part" style="font-size: 12px;">武器</div></div><span class="highlight">G5-1 → G10-5</span><span class="goal-date">（4/15～4/27）</span><span class="goal-arrow">＞</span></div><div class="goal-item"><div class="goal-label"><div class="monster-name" style="font-size: 12px;">オドガロン亜種</div><div class="equip-part" style="font-size: 12px;">頭</div></div><span class="highlight">未生産 → G8-1</span><span class="goal-date">（4/20～4/25）</span><span class="goal-arrow">＞</span></div><div id="show-more-container" style="text-align: right; margin: 4px 6px;">
+  <button id="show-more-button" style="color:#48C08A; background: none; border: none; font-size: 12px; cursor: pointer;">
+    ＋すべて表示
+  </button>
+</div><div class="goal-item hidden-goal">
+  <div class="goal-label"><div class="monster-name" ...>クルルヤック</div><div class="equip-part" style="font-size: 12px;">脚</div></div><span class="highlight">G2-2 → G8-1</span><span class="goal-date">（4/26～4/30）</span><span class="goal-arrow">＞</span></div><div class="goal-item hidden-goal">
+  <div class="goal-label"><div class="monster-name" ...>ティガレックス</div><div class="equip-part" style="font-size: 12px;">武器</div></div><span class="highlight">未生産 → G10-5</span><span class="goal-date">（4/20～5/1）</span><span class="goal-arrow">＞</span></div></div>
 <footer>
 <a href="/karilog-today/">HOME</a>
 <a href="#">TODAY</a>
@@ -191,6 +200,23 @@
     details.style.display = isVisible ? "none" : "block";
     icon.textContent = isVisible ? "＋ タップして詳細" : "－ タップして詳細";
   }
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleButton = document.getElementById("toggleGoals");
+    const hiddenGoals = document.querySelectorAll(".goal-item.hidden-goal");
+
+    toggleButton.addEventListener("click", function () {
+      hiddenGoals.forEach(item => {
+        item.style.display = item.style.display === "none" ? "flex" : "none";
+      });
+
+      // ボタンの文言も切り替える場合（任意）
+      toggleButton.textContent = toggleButton.textContent === "＋もっと見る"
+        ? "ー閉じる"
+        : "＋もっと見る";
+    });
+  });
 </script>
 </body>
 </html>

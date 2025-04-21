@@ -221,6 +221,22 @@ header {
   height: 100vh;
   box-sizing: border-box;
 }
+header {
+  height: 64px;
+  z-index: 1000;
+}
+
+.wrapper {
+  padding-top: 64px;
+  height: calc(100vh - 60px); /* footer高さ60px */
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.menu-icon {
+  z-index: 1001; /* ヘッダーより上に */
+  position: relative;
+}
 </style>
 </head>
 <body>

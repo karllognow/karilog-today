@@ -351,10 +351,30 @@ header {
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  // 憑依錬成：最初の2件だけ初期表示
-  const initialPossessions = document.querySelectorAll(".possess-item.hidden-possession");
-  for (let i = 0; i < 2 && i < initialPossessions.length; i++) {
-    initialPossessions[i].style.display = "flex";
+  // 初期表示：憑依錬成 2件だけ表示（それ以降は非表示）
+  const allPossessions = document.querySelectorAll(".possess-item");
+  allPossessions.forEach((item, index) => {
+    if (index >= 2) {
+      item.classList.add("hidden-possession");
+      item.style.display = "none";
+    }
+  });
+
+  // ボタン切替表示制御
+  const togglePossessionButton = document.getElementById("show-possession-button");
+  const hiddenPossessions = document.querySelectorAll(".possess-item.hidden-possession");
+
+  if (togglePossessionButton) {
+    togglePossessionButton.addEventListener("click", function () {
+      hiddenPossessions.forEach(item => {
+        item.style.display = item.style.display === "none" ? "flex" : "none";
+      });
+
+      togglePossessionButton.textContent =
+        togglePossessionButton.textContent === "＋すべて表示"
+          ? "ーすべて非表示"
+          : "＋すべて表示";
+    });
   }
 });
 </script>

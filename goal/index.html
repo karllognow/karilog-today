@@ -136,9 +136,6 @@
     .hidden-goal {
   display: none;
 }
-.hidden-possession {
-  display: none;
-}
 .equip-part {
   font-size: 12px;
 }
@@ -305,12 +302,6 @@ header {
   <span class="skill-color">赤</span>
   <span class="goal-arrow">＞</span>
 </div>
-
-<div id="show-possession-container" style="text-align: right; margin: 4px 6px;">
-  <button id="show-possession-button" style="color:#48C08A; background: none; border: none; font-size: 12px; cursor: pointer;">
-    ＋すべて表示
-  </button>
-</div>
 </div>
 </div>
 <footer>
@@ -348,35 +339,6 @@ header {
         : "＋すべて表示";
     });
   });
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  // 初期表示：憑依錬成 2件だけ表示（それ以降は非表示）
-  const allPossessions = document.querySelectorAll(".possess-item");
-  allPossessions.forEach((item, index) => {
-    if (index >= 2) {
-      item.classList.add("hidden-possession");
-      item.style.display = "none";
-    }
-  });
-
-  // ボタン切替表示制御
-  const togglePossessionButton = document.getElementById("show-possession-button");
-  const hiddenPossessions = document.querySelectorAll(".possess-item.hidden-possession");
-
-  if (togglePossessionButton) {
-    togglePossessionButton.addEventListener("click", function () {
-      hiddenPossessions.forEach(item => {
-        item.style.display = item.style.display === "none" ? "flex" : "none";
-      });
-
-      togglePossessionButton.textContent =
-        togglePossessionButton.textContent === "＋すべて表示"
-          ? "ーすべて非表示"
-          : "＋すべて表示";
-    });
-  }
-});
 </script>
 </body>
 </html>

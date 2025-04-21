@@ -192,16 +192,6 @@
   font-size: 18px;
   color: #48C08A;
 }
-header {
-  height: 48px;
-}
-.wrapper {
-  padding-top: 64px;
-  height: calc(100vh - 60px); /* footer高さ60px */
-  overflow-y: auto;
-  box-sizing: border-box;
-}
-
 .menu-icon {
   z-index: 1001; /* ヘッダーより上に */
   position: relative;
@@ -224,9 +214,10 @@ header {
 
 .wrapper {
   padding-top: 72px; /* headerと完全一致させる */
-  height: calc(100vh - 60px); /* フッター対策も含む */
+  padding-bottom: 72px; /* footerとの重なり防止 */
   overflow-y: auto;
   box-sizing: border-box;
+  min-height: 100vh;
 }
 </style>
 </head>

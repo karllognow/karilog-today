@@ -150,6 +150,9 @@
     .hidden-goal {
   display: none;
 }
+.hidden-possession {
+  display: none;
+}
 .equip-part {
   font-size: 12px;
 }
@@ -291,6 +294,11 @@
     <span class="goal-arrow">＞</span>
   </div>
 
+<div id="show-possession-container" style="text-align: right; margin: 4px 6px;">
+  <button id="show-possession-button" style="color:#48C08A; background: none; border: none; font-size: 12px; cursor: pointer;">
+    ＋すべて表示
+  </button>
+</div>
 </div>
 </div>
 <footer>
@@ -328,6 +336,23 @@
         : "＋すべて表示";
     });
   });
+</script>
+<script>
+  const togglePossessionButton = document.getElementById("show-possession-button");
+  const hiddenPossessions = document.querySelectorAll(".possess-item.hidden-possession");
+
+  if (togglePossessionButton) {
+    togglePossessionButton.addEventListener("click", function () {
+      hiddenPossessions.forEach(item => {
+        item.style.display = item.style.display === "none" ? "flex" : "none";
+      });
+
+      togglePossessionButton.textContent =
+        togglePossessionButton.textContent === "＋すべて表示"
+          ? "ーすべて非表示"
+          : "＋すべて表示";
+    });
+  }
 </script>
 </body>
 </html>

@@ -267,26 +267,25 @@ header {
     憑依錬成目標
     <span class="goal-add-button">＋</span>
   </h3>
-
-  <div class="possess-item">
-    <div class="possess-label">
-      <div class="monster-name">ジンオウガ</div>
-      <div class="equip-part">腰</div>
-    </div>
-    <span class="skill-highlight">攻撃強化Lv2</span>
-    <span class="skill-color">青</span>
-    <span class="goal-arrow">＞</span>
+<div class="possess-item hidden-possession">
+  <div class="possess-label">
+    <div class="monster-name">ジンオウガ</div>
+    <div class="equip-part">腰</div>
   </div>
+  <span class="skill-highlight">攻撃強化Lv2</span>
+  <span class="skill-color">青</span>
+  <span class="goal-arrow">＞</span>
+</div>
 
-  <div class="possess-item">
-    <div class="possess-label">
-      <div class="monster-name">イビルジョー</div>
-      <div class="equip-part">脚</div>
-    </div>
-    <span class="skill-highlight">火属性強化Lv1</span>
-    <span class="skill-color">赤</span>
-    <span class="goal-arrow">＞</span>
+<div class="possess-item hidden-possession">
+  <div class="possess-label">
+    <div class="monster-name">イビルジョー</div>
+    <div class="equip-part">脚</div>
   </div>
+  <span class="skill-highlight">火属性強化Lv1</span>
+  <span class="skill-color">赤</span>
+  <span class="goal-arrow">＞</span>
+</div>
 <div class="possess-item hidden-possession">
   <div class="possess-label">
     <div class="monster-name">ベリオロス</div>
@@ -351,21 +350,13 @@ header {
   });
 </script>
 <script>
-  const togglePossessionButton = document.getElementById("show-possession-button");
-  const hiddenPossessions = document.querySelectorAll(".possess-item.hidden-possession");
-
-  if (togglePossessionButton) {
-    togglePossessionButton.addEventListener("click", function () {
-      hiddenPossessions.forEach(item => {
-        item.style.display = item.style.display === "none" ? "flex" : "none";
-      });
-
-      togglePossessionButton.textContent =
-        togglePossessionButton.textContent === "＋すべて表示"
-          ? "ーすべて非表示"
-          : "＋すべて表示";
-    });
+document.addEventListener("DOMContentLoaded", function () {
+  // 憑依錬成：最初の2件だけ初期表示
+  const initialPossessions = document.querySelectorAll(".possess-item.hidden-possession");
+  for (let i = 0; i < 2 && i < initialPossessions.length; i++) {
+    initialPossessions[i].style.display = "flex";
   }
+});
 </script>
 </body>
 </html>

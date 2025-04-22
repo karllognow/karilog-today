@@ -402,7 +402,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (isExpanding) {
         setTimeout(() => {
-          const container = document.querySelector('.possess-section');
+          const container = togglePossessionButton.closest('.possess-section');
           const visiblePossessions = Array.from(container.querySelectorAll(".possess-item"))
             .filter(el => el.style.display !== "none");
           const last = visiblePossessions[visiblePossessions.length - 1];

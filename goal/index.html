@@ -371,26 +371,27 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const togglePossessionButton = document.getElementById("show-possession-button");
-  const hiddenPossessions = document.querySelectorAll(".possess-item.hidden-possession");
 
   if (togglePossessionButton) {
     togglePossessionButton.addEventListener("click", function () {
-      hiddenPossessions.forEach(item => {
-        item.style.display = item.style.display === "none" ? "flex" : "none";
+      const isExpanding = togglePossessionButton.textContent === "＋すべて表示";
+
+      allPossessions.forEach((item, index) => {
+        const shouldShow = isExpanding || index < 2;
+        item.style.display = shouldShow ? "flex" : "none";
+        item.classList.toggle("hidden-possession", !shouldShow && index >= 2);
       });
 
-      togglePossessionButton.textContent =
-        togglePossessionButton.textContent === "＋すべて表示"
-          ? "ーすべて非表示"
-          : "＋すべて表示";
+      togglePossessionButton.textContent = isExpanding
+        ? "ーすべて非表示"
+        : "＋すべて表示";
 
-      // ★ スクロール処理
-      if (togglePossessionButton.textContent === "ーすべて非表示") {
+      if (isExpanding) {
         setTimeout(() => {
-          const visiblePossessions = document.querySelectorAll(".possess-item");
-          const lastPossession = visiblePossessions[visiblePossessions.length - 1];
-          if (lastPossession) {
-            lastPossession.scrollIntoView({ behavior: "smooth", block: "end" });
+          const visible = document.querySelectorAll(".possess-item");
+          const last = visible[visible.length - 1];
+          if (last) {
+            last.scrollIntoView({ behavior: "smooth", block: "end" });
           }
         }, 20);
       }

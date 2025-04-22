@@ -346,6 +346,17 @@ header {
       toggleButton.textContent = toggleButton.textContent === "＋すべて表示"
         ? "ーすべて非表示"
         : "＋すべて表示";
+
+      if (toggleButton.textContent === "ーすべて非表示") {
+  // ★ 20ms遅延で描画が終わったあとにスクロール
+  setTimeout(() => {
+    const visibleGoals = document.querySelectorAll(".goal-item");
+    const lastGoal = visibleGoals[visibleGoals.length - 1];
+    if (lastGoal) {
+      lastGoal.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, 20);
+}
     });
   });
 </script>

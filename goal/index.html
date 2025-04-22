@@ -388,13 +388,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (isExpanding) {
         setTimeout(() => {
-          const visiblePossessions = Array.from(document.querySelectorAll(".possess-item"))
-            .filter(el => el.style.display !== "none");
-          const last = visiblePossessions[visiblePossessions.length - 1];
-          if (last) {
-            last.scrollIntoView({ behavior: "smooth", block: "end" });
-          }
-        }, 20);
+  const container = document.querySelector('.possess-section'); // ★固定範囲で限定
+  const visiblePossessions = Array.from(container.querySelectorAll(".possess-item"))
+    .filter(el => el.style.display !== "none");
+  const last = visiblePossessions[visiblePossessions.length - 1];
+  if (last) {
+    last.scrollIntoView({ behavior: "smooth", block: "end" });
+  }
+}, 20);
       }
     });
   }

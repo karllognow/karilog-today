@@ -416,13 +416,14 @@ html, body {
 
       if (isExpanding) {
   setTimeout(() => {
-  const wrapper = document.querySelector('.wrapper');
-  const omotiButton = document.getElementById("omoti"); // ★ 固有IDの取得
+  const section = document.querySelector('.goal-section');
+  const omotiButton = document.getElementById("omoti");
 
-  if (omotiButton && wrapper) {
-    const relativeOffset = omotiButton.getBoundingClientRect().top - wrapper.getBoundingClientRect().top;
-    wrapper.scrollTo({
-      top: wrapper.scrollTop + relativeOffset,
+  if (omotiButton && section) {
+    const relativeOffset = omotiButton.getBoundingClientRect().bottom - section.getBoundingClientRect().bottom + 20;
+
+    section.scrollTo({
+      top: section.scrollTop + relativeOffset,
       behavior: "smooth"
     });
   }

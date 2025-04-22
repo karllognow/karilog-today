@@ -352,15 +352,17 @@ const hiddenGoals = section.querySelectorAll(".goal-item.hidden-goal");
     }
 
     toggleButton.addEventListener("click", function () {
+  const isExpanding = toggleButton.textContent === "＋すべて表示";
+
   hiddenGoals.forEach(item => {
     item.style.display = item.style.display === "none" ? "flex" : "none";
   });
 
-  toggleButton.textContent = toggleButton.textContent === "＋すべて表示"
+  toggleButton.textContent = isExpanding
     ? "ーすべて非表示"
     : "＋すべて表示";
 
-  if (toggleButton.textContent === "ーすべて非表示") {
+  if (isExpanding) {
     setTimeout(() => {
       const wrapper = document.querySelector('.wrapper');
       const section = document.querySelector('.goal-section');
@@ -376,7 +378,7 @@ const hiddenGoals = section.querySelectorAll(".goal-item.hidden-goal");
     }, 20);
   }
 
-  // ★ 初期化ロジック（追加）
+  // ★ 初期化ロジック
   if (!isExpanding) {
     const allGoals = section.querySelectorAll(".goal-item");
     allGoals.forEach((item, index) => {

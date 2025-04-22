@@ -402,15 +402,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (isExpanding) {
         setTimeout(() => {
-          const container = togglePossessionButton.closest('.possess-section');
-          const visiblePossessions = Array.from(container.querySelectorAll(".possess-item"))
-            .filter(el => el.style.display !== "none");
-          const last = visiblePossessions[visiblePossessions.length - 1];
-console.log("scroll対象：", last);
-          if (last) {
-            last.scrollIntoView({ behavior: "smooth", block: "end" });
-          }
-        }, 20);
+  const wrapper = document.querySelector('.wrapper');
+  const container = document.querySelector('.possess-section');
+  const items = Array.from(container.querySelectorAll('.possess-item'))
+    .filter(el => el.style.display !== "none");
+  const last = items[items.length - 1];
+
+  if (last && wrapper) {
+    wrapper.scrollTo({
+      top: last.offsetTop,
+      behavior: "smooth"
+    });
+  }
+}, 20);
       }
     });
   }

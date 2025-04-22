@@ -364,7 +364,10 @@ header {
 document.addEventListener("DOMContentLoaded", function () {
   const allPossessions = document.querySelectorAll(".possess-item");
   allPossessions.forEach((item, index) => {
-    if (index >= 2) {
+    if (index < 2) {
+      item.classList.remove("hidden-possession");
+      item.style.display = "flex";
+    } else {
       item.classList.add("hidden-possession");
       item.style.display = "none";
     }
@@ -374,21 +377,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (togglePossessionButton) {
     togglePossessionButton.addEventListener("click", function () {
-      const isExpanding = togglePossessionButton.textContent === "＋すべて表示";
+  const isExpanding = togglePossessionButton.textContent === "＋すべて表示";
 
-      allPossessions.forEach((item, index) => {
-        const shouldShow = isExpanding || index < 2;
-        item.style.display = shouldShow ? "flex" : "none";
-        item.classList.toggle("hidden-possession", !shouldShow && index >= 2);
-      });
+  if (isExpanding) {
+    allPossessions.forEach(item => {
+      item.style.display = "flex";
+      item.classList.remove("hidden-possession");
+    });
+  } else {
+    allPossessions.forEach((item, index) => {
+      if (index < 2) {
+        item.style.display = "flex";
+        item.classList.remove("hidden-possession");
+      } else {
+        item.style.display = "none";
+        item.classList.add("hidden-possession");
+      }
+    });
+  }
 
-      togglePossessionButton.textContent = isExpanding
-        ? "ーすべて非表示"
-        : "＋すべて表示";
+  togglePossessionButton.textContent = isExpanding
+    ? "ーすべて非表示"
+    : "＋すべて表示";
 
-      if (isExpanding) {
-  setTimeout(() => {
-    const container = document.querySelector('.possess-section');  // スコープ限定
+            if (isExpanding) {
+    setTimeout(() => {
+    const container = document.querySelector('.possess-section');
     const visiblePossessions = Array.from(container.querySelectorAll(".possess-item"))
       .filter(el => el.style.display !== "none");
     const last = visiblePossessions[visiblePossessions.length - 1];
@@ -396,7 +410,9 @@ document.addEventListener("DOMContentLoaded", function () {
       last.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   }, 20);
-}
+  }
+});
+</script>
 </script>
 </body>
 </html>

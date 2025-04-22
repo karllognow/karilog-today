@@ -409,8 +409,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const last = items[items.length - 1];
 
   if (last && wrapper) {
+    const relativeOffset = last.getBoundingClientRect().top - wrapper.getBoundingClientRect().top;
     wrapper.scrollTo({
-      top: last.offsetTop,
+      top: wrapper.scrollTop + relativeOffset,
       behavior: "smooth"
     });
   }

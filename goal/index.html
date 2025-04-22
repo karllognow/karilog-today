@@ -343,7 +343,8 @@ html, body {
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const toggleButton = document.getElementById("show-more-button");
-    const hiddenGoals = document.querySelectorAll(".goal-item.hidden-goal");
+    const section = document.querySelector(".goal-section");
+const hiddenGoals = section.querySelectorAll(".goal-item.hidden-goal");
 
     if (!toggleButton) {
       console.warn("ボタンが見つかりません。IDが正しいか確認してください。");
@@ -351,26 +352,44 @@ html, body {
     }
 
     toggleButton.addEventListener("click", function () {
-      hiddenGoals.forEach(item => {
-        item.style.display = item.style.display === "none" ? "flex" : "none";
-      });
-
-      toggleButton.textContent = toggleButton.textContent === "＋すべて表示"
-        ? "ーすべて非表示"
-        : "＋すべて表示";
-
-      if (toggleButton.textContent === "ーすべて非表示") {
-  // ★ 20ms遅延で描画が終わったあとにスクロール
-  setTimeout(() => {
-    const visibleGoals = document.querySelectorAll(".goal-item");
-    const lastGoal = visibleGoals[visibleGoals.length - 1];
-    if (lastGoal) {
-      lastGoal.scrollIntoView({ behavior: "smooth", block: "end" });
-    }
-  }, 20);
-}
-    });
+  hiddenGoals.forEach(item => {
+    item.style.display = item.style.display === "none" ? "flex" : "none";
   });
+
+  toggleButton.textContent = toggleButton.textContent === "＋すべて表示"
+    ? "ーすべて非表示"
+    : "＋すべて表示";
+
+  if (toggleButton.textContent === "ーすべて非表示") {
+    setTimeout(() => {
+      const wrapper = document.querySelector('.wrapper');
+      const section = document.querySelector('.goal-section');
+      const visibleGoals = section.querySelectorAll(".goal-item:not(.hidden-goal)");
+      const lastGoal = visibleGoals[visibleGoals.length - 1];
+      if (lastGoal && wrapper) {
+        const relativeOffset = lastGoal.getBoundingClientRect().top - wrapper.getBoundingClientRect().top;
+        wrapper.scrollTo({
+          top: wrapper.scrollTop + relativeOffset,
+          behavior: "smooth"
+        });
+      }
+    }, 20);
+  }
+
+  // ★ 初期化ロジック（追加）
+  if (!isExpanding) {
+    const allGoals = section.querySelectorAll(".goal-item");
+    allGoals.forEach((item, index) => {
+      if (index < 2) {
+        item.classList.remove("hidden-goal");
+        item.style.display = "flex";
+      } else {
+        item.classList.add("hidden-goal");
+        item.style.display = "none";
+      }
+    });
+  }
+});
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -408,9 +427,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       }
 
-      togglePossessionButton.textContent = isExpanding
-        ? "ーすべて非表示"
-        : "＋すべて表示";
+      if (isExpanding) {
+  togglePossessionButton.textContent = "ーすべて非表示";
+} else {
+  togglePossessionButton.textContent = "＋すべて表示";
+}
 
       if (isExpanding) {
         setTimeout(() => {

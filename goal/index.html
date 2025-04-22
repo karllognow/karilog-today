@@ -383,6 +383,17 @@ document.addEventListener("DOMContentLoaded", function () {
         togglePossessionButton.textContent === "＋すべて表示"
           ? "ーすべて非表示"
           : "＋すべて表示";
+
+      // ★ スクロール処理
+      if (togglePossessionButton.textContent === "ーすべて非表示") {
+        setTimeout(() => {
+          const visiblePossessions = document.querySelectorAll(".possess-item");
+          const lastPossession = visiblePossessions[visiblePossessions.length - 1];
+          if (lastPossession) {
+            lastPossession.scrollIntoView({ behavior: "smooth", block: "end" });
+          }
+        }, 20);
+      }
     });
   }
 });

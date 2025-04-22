@@ -415,20 +415,18 @@ html, body {
         : "＋すべて表示";
 
       if (isExpanding) {
-        setTimeout(() => {
-          const wrapper = document.querySelector('.wrapper');
-          const section = document.querySelector('.goal-section');
-          const visibleGoals = section.querySelectorAll(".goal-item:not(.hidden-goal)");
-          const lastGoal = visibleGoals[visibleGoals.length - 1];
-          if (lastGoal && wrapper) {
-            const relativeOffset = lastGoal.getBoundingClientRect().top - wrapper.getBoundingClientRect().top;
-            wrapper.scrollTo({
-              top: wrapper.scrollTop + relativeOffset,
-              behavior: "smooth"
-            });
-          }
-        }, 20);
-      }
+  setTimeout(() => {
+    const wrapper = document.querySelector('.wrapper');
+    const button = document.getElementById("show-more-button"); // ★修正ポイント
+    if (button && wrapper) {
+      const relativeOffset = button.getBoundingClientRect().top - wrapper.getBoundingClientRect().top;
+      wrapper.scrollTo({
+        top: wrapper.scrollTop + relativeOffset,
+        behavior: "smooth"
+      });
+    }
+  }, 20);
+}
 
       // ★ 初期化ロジック
       if (!isExpanding) {

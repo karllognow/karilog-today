@@ -278,7 +278,7 @@ html, body {
 <div class="goal-item hidden-goal">
   <div class="goal-label"><div class="monster-name">ティガレックス</div><div class="equip-part">武器</div></div><span class="highlight">未生産 → G10-5</span><span class="goal-date">4/20～5/1</span><span class="goal-arrow">＞</span></div>
 <div id="show-more-container" style="text-align: right; margin: 4px 6px 12px;">
-  <button id="show-more-button" style="color:#48C08A; background: none; border: none; font-size: 12px; cursor: pointer;">
+  <button id="omoti" style="color:#48C08A; background: none; border: none; font-size: 12px; cursor: pointer;">
     ＋すべて表示
   </button>
 </div>
@@ -416,16 +416,17 @@ html, body {
 
       if (isExpanding) {
   setTimeout(() => {
-    const wrapper = document.querySelector('.wrapper');
-    const button = document.getElementById("show-more-button"); // ★修正ポイント
-    if (button && wrapper) {
-      const relativeOffset = button.getBoundingClientRect().top - wrapper.getBoundingClientRect().top;
-      wrapper.scrollTo({
-        top: wrapper.scrollTop + relativeOffset,
-        behavior: "smooth"
-      });
-    }
-  }, 20);
+  const wrapper = document.querySelector('.wrapper');
+  const omotiButton = document.getElementById("omoti"); // ★ 固有IDの取得
+
+  if (omotiButton && wrapper) {
+    const relativeOffset = omotiButton.getBoundingClientRect().top - wrapper.getBoundingClientRect().top;
+    wrapper.scrollTo({
+      top: wrapper.scrollTop + relativeOffset,
+      behavior: "smooth"
+    });
+  }
+}, 20);
 }
 
       // ★ 初期化ロジック

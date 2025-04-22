@@ -352,7 +352,6 @@ html, body {
 
   const toggleButton = document.getElementById("show-more-button");
   const section = document.querySelector(".goal-section");
-  const hiddenGoals = section.querySelectorAll(".goal-item.hidden-goal");
 
     if (!toggleButton) {
       console.warn("ボタンが見つかりません。IDが正しいか確認してください。");
@@ -361,7 +360,7 @@ html, body {
 
     toggleButton.addEventListener("click", function () {
   const isExpanding = toggleButton.textContent === "＋すべて表示";
-
+const hiddenGoals = section.querySelectorAll(".goal-item.hidden-goal");
   hiddenGoals.forEach(item => {
     item.style.display = item.style.display === "none" ? "flex" : "none";
   });

@@ -387,19 +387,16 @@ document.addEventListener("DOMContentLoaded", function () {
         : "＋すべて表示";
 
       if (isExpanding) {
-        setTimeout(() => {
-  const container = document.querySelector('.possess-section');
-  const visiblePossessions = Array.from(container.querySelectorAll(".possess-item"))
-    .filter(el => el.style.display !== "none");
-  const last = visiblePossessions[visiblePossessions.length - 1];
-  if (last) {
-    last.scrollIntoView({ behavior: "smooth", block: "end" });
-  }
-}, 20);
-      }
-    });
-  }
-});
+  setTimeout(() => {
+    const container = document.querySelector('.possess-section');  // スコープ限定
+    const visiblePossessions = Array.from(container.querySelectorAll(".possess-item"))
+      .filter(el => el.style.display !== "none");
+    const last = visiblePossessions[visiblePossessions.length - 1];
+    if (last) {
+      last.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, 20);
+}
 </script>
 </body>
 </html>

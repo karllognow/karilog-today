@@ -95,12 +95,18 @@
     <h2>装備製作目標を登録</h2>
     <form id="equip-form">
       <label for="monster">モンスター名</label>
-      <select id="monster" required>
-        <option value="">選択してください</option>
-        <option value="タマミツネ">タマミツネ</option>
-        <option value="ティガレックス">ティガレックス</option>
-        <option value="オドガロン亜種">オドガロン亜種</option>
-      </select>
+<input list="monster-list" id="monster" name="monster" placeholder="モンスター名を入力 or 選択" required />
+
+<datalist id="monster-list">
+  <option value="タマミツネ">
+  <option value="ティガレックス">
+  <option value="オドガロン亜種">
+  <option value="クルルヤック">
+  <option value="ジンオウガ">
+  <option value="ラージャン">
+  <option value="ベリオロス">
+  <option value="イビルジョー">
+</datalist>
 
       <label for="part">部位</label>
       <select id="part" required>

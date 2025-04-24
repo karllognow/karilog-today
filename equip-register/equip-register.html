@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>装備登録 - 狩ログNOW</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      background-color: #111;
+      color: white;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 72px;
+      background-color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      box-sizing: border-box;
+      z-index: 1000;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .menu-icon {
+      font-size: 22px;
+      color: #48C08A;
+      cursor: pointer;
+    }
+    .wrapper {
+      padding: 80px 16px 100px;
+      box-sizing: border-box;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    h2 {
+      color: #48C08A;
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+    select, input {
+      width: 100%;
+      padding: 8px;
+      background-color: #1c1c1c;
+      border: 1px solid #48C08A;
+      color: white;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 24px;
+      width: 100%;
+      padding: 12px;
+      background-color: #48C08A;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #000;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      border-top: 1px solid #333;
+    }
+    footer a {
+      color: #48C08A;
+      text-decoration: none;
+      font-size: 12px;
+      padding: 6px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    装備登録
+    <div class="menu-icon">≡</div>
+  </header>
+
+  <div class="wrapper">
+    <h2>装備製作目標を登録</h2>
+    <form id="equip-form">
+      <label for="monster">モンスター名</label>
+      <select id="monster" required>
+        <option value="">選択してください</option>
+        <option value="タマミツネ">タマミツネ</option>
+        <option value="ティガレックス">ティガレックス</option>
+        <option value="オドガロン亜種">オドガロン亜種</option>
+      </select>
+
+      <label for="part">部位</label>
+      <select id="part" required>
+        <option value="">選択してください</option>
+        <option value="武器">武器</option>
+        <option value="頭">頭</option>
+        <option value="胴">胴</option>
+        <option value="腕">腕</option>
+        <option value="腰">腰</option>
+        <option value="脚">脚</option>
+      </select>
+
+      <label for="grade-from">現在のグレード</label>
+      <select id="grade-from">
+        <option value="">未生産</option>
+        <option value="G1-1">G1-1</option>
+        <option value="G5-1">G5-1</option>
+      </select>
+
+      <label for="grade-to">目標グレード</label>
+      <select id="grade-to" required>
+        <option value="">選択してください</option>
+        <option value="G8-1">G8-1</option>
+        <option value="G10-5">G10-5</option>
+      </select>
+
+      <label for="date">期間（任意）</label>
+      <input type="text" id="date" placeholder="例：4/15～4/27" />
+
+      <button type="submit">登録する</button>
+    </form>
+  </div>
+
+  <footer>
+    <a href="/karilog-today/">HOME</a>
+    <a href="#">TODAY</a>
+    <a href="#">WEEKLY</a>
+    <a href="/karilog-today/goal/">GOAL</a>
+  </footer>
+
+  <script>
+    document.getElementById("equip-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("登録処理は未実装ですが、ここでデータを処理します。");
+    });
+  </script>
+</body>
+</html>

@@ -87,6 +87,14 @@
   max-width: 100%;
   box-sizing: border-box;
 }
+#monster-suggestions li {
+  padding: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+#monster-suggestions li:hover {
+  background-color: #2a2a2a;
+}
   </style>
 </head>
 <body>
@@ -99,18 +107,8 @@
     <h2>装備製作目標を登録</h2>
     <form id="equip-form">
       <label for="monster">モンスター名</label>
-<input list="monster-list" id="monster" name="monster" placeholder="モンスター名を入力 or 選択" required />
-
-<datalist id="monster-list">
-  <option value="タマミツネ">
-  <option value="ティガレックス">
-  <option value="オドガロン亜種">
-  <option value="クルルヤック">
-  <option value="ジンオウガ">
-  <option value="ラージャン">
-  <option value="ベリオロス">
-  <option value="イビルジョー">
-</datalist>
+<input type="text" id="monster" name="monster" placeholder="モンスター名を入力" autocomplete="off" required />
+<ul id="monster-suggestions" style="list-style: none; padding: 0; margin: 4px 0 0; background: #1c1c1c; border: 1px solid #48C08A; border-radius: 4px; display: none; max-height: 160px; overflow-y: auto;"></ul>
 
       <label for="part">部位</label>
       <select id="part" required>
@@ -156,6 +154,54 @@
       e.preventDefault();
       alert("登録処理は未実装ですが、ここでデータを処理します。");
     });
+const monsterInput = document.getElementById("monster");
+const suggestionBox = document.getElementById("monster-suggestions");
+
+const monsterList = [
+  "タマミツネ", "ティガレックス", "オドガロン亜種",
+  "クルルヤック", "ジンオウガ", "ラージャン",
+  "ベリオロス", "イビルジョー"
+];
+
+function hiraToKana(str) {
+  return str.replace(/[\u3041-\u3096]/g, function(ch) {
+    return String.fromCharCode(ch.charCodeAt(0) + 0x60);
+  });
+}
+
+monsterInput.addEventListener("input", function () {
+  const inputVal = hiraToKana(this.value.trim());
+  suggestionBox.innerHTML = "";
+  if (!inputVal) {
+    suggestionBox.style.display = "none";
+    return;
+  }
+
+  const filtered = monsterList.filter(name => name.includes(inputVal));
+  if (filtered.length === 0) {
+    suggestionBox.style.display = "none";
+    return;
+  }
+
+  filtered.forEach(name => {
+    const li = document.createElement("li");
+    li.textContent = name;
+    li.addEventListener("click", function () {
+      monsterInput.value = name;
+      suggestionBox.style.display = "none";
+    });
+    suggestionBox.appendChild(li);
+  });
+
+  suggestionBox.style.display = "block";
+});
+
+// フォーカス外でリストを非表示
+document.addEventListener("click", function (e) {
+  if (!monsterInput.contains(e.target) && !suggestionBox.contains(e.target)) {
+    suggestionBox.style.display = "none";
+  }
+});
   </script>
 </body>
 </html>
